@@ -1,0 +1,539 @@
+.container {
+  width: 100%;
+  max-width: 440px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background-color: #ffffff;
+  color: #1a1c20;
+  padding: 0 0 120px 0;
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.05);
+}
+
+/* Status Bar */
+.statusBar {
+  height: 48px;
+  padding: 12px 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+}
+
+.time {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111;
+}
+
+.statusIndicators {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #111;
+}
+
+.signalText {
+  font-size: 10px;
+  font-weight: 600;
+  color: #333;
+}
+
+.batteryPill {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #111;
+}
+
+/* Top Location and Brand Header */
+.topHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px 14px;
+  background: #ffffff;
+}
+
+.locationWrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.pinIcon {
+  width: 24px;
+  height: 24px;
+  color: #c6121f;
+}
+
+.locationInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.locationTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.locationTitle {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1a1c20;
+}
+
+.chevronDown {
+  width: 16px;
+  height: 16px;
+  color: #666;
+}
+
+.locationSubtitle {
+  font-size: 13px;
+  color: #70757a;
+  margin-top: 1px;
+}
+
+/* Kolkata This Weekend Brand Logo in Header */
+.brandLogoWrapper {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(198, 18, 31, 0.25);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+  position: relative;
+  background: #c6121f;
+}
+
+.brandLogoWrapper:hover {
+  transform: scale(1.05);
+}
+
+.logoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 3 Core Cards (Durga Puja Events, Movies, VIP Puja Pass) */
+.categoriesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 8px 18px 24px;
+}
+
+.categoryCard {
+  background: #ffffff;
+  border: 1.5px solid #f1f3f5;
+  border-radius: 20px;
+  padding: 16px 8px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  min-height: 110px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.categoryCard:hover {
+  transform: translateY(-2px);
+  border-color: #fca5a5;
+  box-shadow: 0 8px 20px rgba(198, 18, 31, 0.1);
+}
+
+.categoryIcon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: 14px;
+}
+
+.categoryLabel {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #1f2937;
+  text-align: center;
+  line-height: 1.25;
+}
+
+/* Section Header */
+.sectionHeader {
+  padding: 4px 20px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: #111827;
+}
+
+/* In the Spotlight Section */
+.spotlightWrapper {
+  padding: 0 0 24px 0;
+  overflow: hidden;
+}
+
+.spotlightCarousel {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spotlightCard {
+  position: absolute;
+  width: 258px;
+  height: 380px;
+  border-radius: 28px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  cursor: pointer;
+  box-shadow: 0 16px 36px rgba(198, 18, 31, 0.16), 0 4px 12px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px;
+  background-size: cover;
+  background-position: center;
+}
+
+.spotlightCard.active {
+  z-index: 10;
+  transform: translateX(0) scale(1);
+}
+
+.spotlightCard.prev {
+  z-index: 5;
+  transform: translateX(-168px) scale(0.86);
+  opacity: 0.7;
+  filter: brightness(0.9);
+}
+
+.spotlightCard.next {
+  z-index: 5;
+  transform: translateX(168px) scale(0.86);
+  opacity: 0.7;
+  filter: brightness(0.9);
+}
+
+.topPillRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 2;
+}
+
+.theatrePill {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  color: #c6121f;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.fireBtn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #c6121f;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.spotlightBottomInfo {
+  margin-top: 4px;
+  text-align: center;
+  padding: 0 24px;
+}
+
+.spotlightMovieTitle {
+  font-size: 16.5px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+.spotlightMovieDesc {
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.35;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+/* Dots Indicator */
+.dotsIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #d1d5db;
+  transition: all 0.25s ease;
+}
+
+.dot.activeDot {
+  width: 22px;
+  border-radius: 4px;
+  background: #c6121f;
+}
+
+/* Continue where you left off */
+.continueSection {
+  padding: 12px 0 24px 0;
+}
+
+.horizontalScroll {
+  display: flex;
+  gap: 14px;
+  padding: 0 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+}
+
+.continueCard {
+  flex: 0 0 195px;
+  background: #ffffff;
+  border: 1px solid #f1f3f5;
+  border-radius: 18px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+}
+
+.continueCardTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.bookmarkBtn {
+  background: none;
+  border: none;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 2px;
+  transition: color 0.15s;
+}
+
+.bookmarkBtn:hover {
+  color: #c6121f;
+}
+
+.continueCardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.continueCardTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.continueCardSub {
+  font-size: 12px;
+  color: #6b7280;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.viewDetailsLink {
+  margin-top: 4px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #c6121f;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+/* What's hot on District */
+.hotSection {
+  padding: 12px 0 26px 0;
+}
+
+.editorialCard {
+  flex: 0 0 260px;
+  cursor: pointer;
+}
+
+.editorialBanner {
+  width: 100%;
+  height: 220px;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.editorialInfo {
+  margin-top: 10px;
+}
+
+.editorialTitle {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.editorialMeta {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 3px;
+}
+
+/* Floating Bottom Navigation Bar */
+.bottomNavWrapper {
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 100;
+  pointer-events: none;
+}
+
+/* Source Switcher Pills (District vs BookMyShow) */
+.sourceSwitcher {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  border: 1.5px solid #f1f3f5;
+  padding: 4px 6px;
+  border-radius: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.09);
+}
+
+.sourcePill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sourcePill:hover {
+  color: #111827;
+}
+
+.sourcePill.activeSourceDistrict {
+  background: #c6121f;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(198, 18, 31, 0.3);
+}
+
+.sourcePill.activeSourceBms {
+  background: #c6121f;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(198, 18, 31, 0.3);
+}
+
+.sourceLogo {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.floatingNavBar {
+  pointer-events: auto;
+  background: #ffffff;
+  border: 1.5px solid #f1f3f5;
+  border-radius: 40px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.1);
+}
+
+.navItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  background: none;
+  border: none;
+  color: #6b7280;
+  padding: 6px 18px;
+  border-radius: 28px;
+  cursor: pointer;
+  font-size: 11.5px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.navItem.activeNav {
+  background: #fde8ea;
+  color: #c6121f;
+}
+
+.navItem:hover:not(.activeNav) {
+  color: #c6121f;
+}

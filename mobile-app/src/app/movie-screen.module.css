@@ -1,0 +1,427 @@
+.appContainer {
+  width: 100%;
+  max-width: 440px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-bottom: 24px;
+}
+
+/* Status Bar */
+.statusBar {
+  height: 48px;
+  padding: 12px 24px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 50;
+}
+
+.time {
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: -0.2px;
+  color: #111;
+}
+
+.dynamicIsland {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 10px;
+  width: 112px;
+  height: 31px;
+  background: #000000;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 12px;
+}
+
+.cameraLens {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #111625;
+  box-shadow: inset 0 0 2px rgba(255, 255, 255, 0.4);
+}
+
+.statusIcons {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #111;
+}
+
+.signalBars {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.5px;
+  height: 11px;
+}
+
+.signalBars span {
+  width: 3px;
+  background: #111;
+  border-radius: 1px;
+}
+.signalBars span:nth-child(1) { height: 4px; }
+.signalBars span:nth-child(2) { height: 6px; }
+.signalBars span:nth-child(3) { height: 8px; }
+.signalBars span:nth-child(4) { height: 11px; }
+
+.batteryIcon {
+  width: 22px;
+  height: 11px;
+  border: 1px solid #111;
+  border-radius: 3.5px;
+  padding: 1.5px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.batteryIcon::after {
+  content: "";
+  position: absolute;
+  right: -3.5px;
+  top: 3px;
+  width: 2px;
+  height: 4px;
+  background: #111;
+  border-radius: 0 1px 1px 0;
+}
+
+.batteryLevel {
+  width: 75%;
+  height: 100%;
+  background: #111;
+  border-radius: 1.5px;
+}
+
+/* App Header */
+.appHeader {
+  padding: 10px 20px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brandLogo {
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease;
+}
+
+.brandLogo:hover {
+  transform: scale(1.05);
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.iconBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1e2025;
+  padding: 4px;
+  transition: opacity 0.2s;
+}
+
+.iconBtn:hover {
+  opacity: 0.7;
+}
+
+/* Category Pills Bar */
+.categoryBar {
+  display: flex;
+  align-items: center;
+  padding: 2px 20px 14px;
+  gap: 14px;
+}
+
+.categoryPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 18px;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  color: #7b808a;
+  transition: all 0.2s ease;
+}
+
+.categoryPill.active {
+  background: #0d0e12;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+}
+
+.categoryPill:not(.active):hover {
+  color: #1c1d21;
+}
+
+/* Sub Navigation / Tabs */
+.subNavBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 20px 14px;
+}
+
+.subTabs {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.subTabItem {
+  position: relative;
+  font-size: 14px;
+  font-weight: 500;
+  color: #8c919d;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding-bottom: 6px;
+  transition: color 0.2s;
+}
+
+.subTabItem.activeSubTab {
+  color: #121316;
+  font-weight: 700;
+}
+
+.subTabIndicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2.5px;
+  background: #f14b24;
+  border-radius: 4px;
+}
+
+.seeAllLink {
+  background: none;
+  border: none;
+  color: #7d828d;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  transition: color 0.15s;
+}
+
+.seeAllLink:hover {
+  color: #1a1b1f;
+}
+
+/* Carousel Section */
+.carouselArea {
+  position: relative;
+  width: 100%;
+  height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.carouselSlide {
+  position: absolute;
+  width: 250px;
+  height: 380px;
+  border-radius: 34px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  user-select: none;
+  background-color: #000;
+}
+
+.carouselSlide.active {
+  z-index: 10;
+  transform: translateX(0) scale(1);
+  box-shadow: 0 22px 50px rgba(220, 20, 60, 0.28), 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.carouselSlide.prev {
+  z-index: 5;
+  transform: translateX(-165px) scale(0.85);
+  opacity: 0.8;
+  filter: brightness(0.9);
+}
+
+.carouselSlide.next {
+  z-index: 5;
+  transform: translateX(165px) scale(0.85);
+  opacity: 0.8;
+  filter: brightness(0.9);
+}
+
+.carouselSlide.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.7);
+}
+
+.posterImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.rankBadge {
+  position: absolute;
+  top: 14px;
+  left: 18px;
+  font-size: 42px;
+  font-weight: 900;
+  font-style: italic;
+  color: #ffffff;
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.7);
+  z-index: 4;
+  line-height: 1;
+}
+
+.favoriteBtn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s;
+  z-index: 5;
+}
+
+.favoriteBtn:hover {
+  transform: scale(1.1);
+}
+
+/* Movie Meta Details */
+.movieMetaContainer {
+  margin-top: 22px;
+  text-align: center;
+  padding: 0 16px;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.movieTitle {
+  font-size: 17.5px;
+  font-weight: 700;
+  color: #121316;
+  letter-spacing: -0.3px;
+  max-width: 320px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ageBadge {
+  background: #f59e0b;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 5px;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.statsRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font-size: 13px;
+  color: #555b66;
+  font-weight: 500;
+}
+
+.statItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dotSeparator {
+  width: 3.5px;
+  height: 3.5px;
+  background: #a0a6b2;
+  border-radius: 50%;
+}
+
+/* Bottom CTA Button */
+.ctaWrapper {
+  margin-top: 28px;
+  display: flex;
+  justify-content: center;
+}
+
+.bookNowBtn {
+  width: 175px;
+  height: 48px;
+  background: #0d0e12;
+  color: #ffffff;
+  border: none;
+  border-radius: 26px;
+  font-size: 15.5px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+  transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bookNowBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.28);
+  background: #000000;
+}
+
+.bookNowBtn:active {
+  transform: translateY(0);
+}
