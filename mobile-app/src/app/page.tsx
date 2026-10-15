@@ -126,6 +126,41 @@ export default function DistrictHomePage() {
         }}
       />
 
+      {/* Viral Pujor Passport 2026 Announcement Banner */}
+      <section className="px-5 pt-4">
+        <Link
+          href="/passport"
+          className={`block p-3.5 rounded-2xl border transition-all duration-300 relative overflow-hidden group ${
+            isDarkMode
+              ? "bg-gradient-to-r from-red-950/60 via-red-900/30 to-[#141620] border-red-500/30 hover:border-red-400"
+              : "bg-gradient-to-r from-red-50 via-amber-50 to-white border-red-200 shadow-xs hover:shadow-md"
+          }`}
+        >
+          <div className="flex items-center gap-3">
+            <span className="text-2xl p-2 rounded-xl bg-[#b51f2a] text-white flex-shrink-0 shadow-md">
+              📜
+            </span>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-1.5">
+                <span className="text-[9px] font-black uppercase tracking-wider text-white bg-[#b51f2a] px-2 py-0.5 rounded-full">
+                  VIRAL STORY GENERATOR
+                </span>
+                <span className="text-[10px] text-amber-500 font-bold">★ Post-Puja Special</span>
+              </div>
+              <h3 className="text-xs font-black mt-1 leading-snug truncate">
+                Claim Your Pujo 2026 Passport & Stamped Visas
+              </h3>
+              <p className="text-[11px] text-neutral-400 truncate mt-0.5">
+                Calculate pandals hopped, rolls eaten & generate your 9:16 Instagram Story card!
+              </p>
+            </div>
+            <span className="text-red-500 text-sm font-black group-hover:translate-x-1 transition-transform">
+              ➔
+            </span>
+          </div>
+        </Link>
+      </section>
+
       {/* In the Spotlight Section with generous breathing room */}
       <section className="pt-7 pb-6 overflow-hidden">
         <div className="px-5 pb-4 flex items-center justify-between">
