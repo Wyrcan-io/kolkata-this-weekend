@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { ArrowLeft, MapPin, Bell } from "lucide-react";
 import { useApp } from "../context";
+import { asset } from "../../lib/assets";
 
 interface AppHeaderProps {
   title?: string;
@@ -74,8 +75,8 @@ export default function AppHeader({
           <div className="flex items-center gap-2 min-w-0 ml-1">
             <div className="relative w-7 h-7 rounded-lg overflow-hidden border border-black/5 shadow-xs shrink-0">
               <Image
-                src="/images/kolkata-logo.png"
-                alt="Kolkata This Weekend"
+                src={asset("/images/kolkata-logo.png")}
+                alt="Logo"
                 fill
                 sizes="28px"
                 className="object-cover"

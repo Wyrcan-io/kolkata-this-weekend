@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import AppHeader from "../../components/AppHeader";
 import { useApp } from "../../context";
+import { asset } from "../../../lib/assets";
 import {
   MessageSquare,
   Play,
@@ -156,7 +157,7 @@ export default function PollClient({ pollId }: { pollId: string }) {
                   className="relative w-6 h-6 rounded-full overflow-hidden border border-[#181a1e] shadow-xs"
                   title={user.name}
                 >
-                  <Image src={user.src} alt={user.name} fill sizes="24px" className="object-cover" />
+                  <Image src={asset(user.src)} alt={user.name} fill sizes="24px" className="object-cover" />
                 </div>
               ))}
             </div>

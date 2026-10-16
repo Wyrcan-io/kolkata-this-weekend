@@ -21,6 +21,7 @@ import {
 import { useApp } from "../context";
 import { generateCircuit } from "../../lib/data";
 import BottomNavbar from "../components/BottomNavbar";
+import { asset } from "../../lib/assets";
 
 export default function PlannerPage() {
   const { savedItems, createPoll, showToast } = useApp();
@@ -197,7 +198,7 @@ export default function PlannerPage() {
             <div className="bg-white rounded-[26px] p-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-neutral-100 overflow-hidden">
               <div className="relative w-full h-28 rounded-2xl overflow-hidden mb-3.5">
                 <Image
-                  src="/images/real/real-kolkata-tram.jpg"
+                  src={asset("/images/real/real-kolkata-tram.jpg")}
                   alt="Kolkata Circuit"
                   fill
                   sizes="400px"

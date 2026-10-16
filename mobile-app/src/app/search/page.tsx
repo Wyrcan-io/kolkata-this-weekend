@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Bell, Search as SearchIcon, X, Film, Music, Ticket, Sparkles, ChevronRight } from "lucide-react";
 import BottomNavbar from "../components/BottomNavbar";
+import { asset } from "../../lib/assets";
 
 const QUICK_TAGS = [
   "Durga Puja Pandals",
@@ -197,7 +198,7 @@ export default function SearchPage() {
             >
               <div className="relative w-14 h-14 rounded-2xl overflow-hidden shrink-0 bg-neutral-100 border border-neutral-100">
                 <Image
-                  src={item.imageSrc}
+                  src={asset(item.imageSrc)}
                   alt={item.title}
                   fill
                   sizes="56px"

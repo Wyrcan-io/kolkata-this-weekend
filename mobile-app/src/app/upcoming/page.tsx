@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Bell, MapPin, Users, Check, Sparkles } from "lucide-react";
 import BottomNavbar from "../components/BottomNavbar";
+import { asset } from "../../lib/assets";
 
 interface UpcomingEvent {
   id: string;
@@ -149,7 +150,7 @@ export default function UpcomingPage() {
               {/* Event Image Banner with Date Tag */}
               <div className="relative w-full h-[160px] overflow-hidden">
                 <Image
-                  src={event.imageSrc}
+                  src={asset(event.imageSrc)}
                   alt={event.title}
                   fill
                   sizes="(max-width: 440px) 400px, 500px"

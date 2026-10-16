@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useApp } from "../context";
 import AppHeader from "../components/AppHeader";
+import { asset } from "../../lib/assets";
 import {
   Search,
   Calendar,
@@ -190,7 +191,7 @@ export default function EventsTimelinePage() {
                   {/* Event Cover Image */}
                   <div className="relative w-full h-44 overflow-hidden bg-[#181a1e]">
                     <Image
-                      src={evt.coverImage || "/images/real/real-jazz-rooftop.jpg"}
+                      src={asset(evt.coverImage || "/images/real/real-jazz-rooftop.jpg")}
                       alt={evt.title}
                       fill
                       sizes="(max-width: 440px) 420px, 440px"

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ArrowLeft, Bell, Flame, Users, Sparkles, MapPin, Ticket, Clock, Heart, ChevronRight } from "lucide-react";
 import { useApp } from "../context";
 import BottomNavbar from "../components/BottomNavbar";
+import { asset } from "../../lib/assets";
 
 interface Movie {
   id: string;
@@ -170,7 +171,7 @@ export default function MoviesPage() {
             >
               <div className="relative w-full h-full">
                 <Image
-                  src={movie.imageSrc}
+                  src={asset(movie.imageSrc)}
                   alt={movie.title}
                   fill
                   sizes="240px"

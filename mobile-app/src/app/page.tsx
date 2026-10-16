@@ -24,6 +24,7 @@ import {
   Clock,
   Radio,
 } from "lucide-react";
+import { asset } from "../lib/assets";
 
 // Curated Hero Spotlight Cards matching Dribbble Deck Aesthetic with Real Photography
 const SPOTLIGHT_HEROES = [
@@ -34,7 +35,7 @@ const SPOTLIGHT_HEROES = [
     neighborhood: "Southern Avenue",
     category: "Live Music",
     price: "₹499 (Drink incl.)",
-    image: "/images/real/real-jazz-rooftop.jpg",
+    image: asset("/images/real/real-jazz-rooftop.jpg"),
     tags: ["CraftBeer", "Rooftop", "BebopJazz", "Cocktails"],
     time: "Saturday 7:30 PM",
     attendees: 38,
@@ -47,7 +48,7 @@ const SPOTLIGHT_HEROES = [
     neighborhood: "EM Bypass",
     category: "Headliner Gig",
     price: "₹499+ entry",
-    image: "/images/real/real-dandiya-celebration.jpg",
+    image: asset("/images/real/real-dandiya-celebration.jpg"),
     tags: ["LiveFolk", "CelebrityDJs", "StreetFood", "Trending"],
     time: "Tonight 7:00 PM",
     attendees: 120,
@@ -60,7 +61,7 @@ const SPOTLIGHT_HEROES = [
     neighborhood: "Hindustan Park",
     category: "Workshop",
     price: "₹850 (All clay incl.)",
-    image: "/images/real/real-pottery-studio.jpg",
+    image: asset("/images/real/real-pottery-studio.jpg"),
     tags: ["Pottery", "PourOverCoffee", "Courtyard", "PetFriendly"],
     time: "Saturday 3:30 PM",
     attendees: 16,
@@ -73,7 +74,7 @@ const SPOTLIGHT_HEROES = [
     neighborhood: "Strand Road",
     category: "Open Air",
     price: "Free Entry (₹300 Boat)",
-    image: "/images/real/real-princep-ghat.jpg",
+    image: asset("/images/real/real-princep-ghat.jpg"),
     tags: ["SunsetGhat", "EarthenChai", "HeritageArches", "RiverHooghly"],
     time: "Sunday 5:00 PM",
     attendees: 52,
@@ -86,7 +87,7 @@ const SPOTLIGHT_HEROES = [
     neighborhood: "Park Circus",
     category: "IMAX Cinema",
     price: "From ₹380",
-    image: "/images/csm.jpg",
+    image: asset("/images/csm.jpg"),
     tags: ["IMAX3D", "AnimePremiere", "88%Booked", "LateNight"],
     time: "Daily 10:45 PM",
     attendees: 84,
@@ -99,7 +100,7 @@ const SPOTLIGHT_HEROES = [
     neighborhood: "College Street",
     category: "Heritage Walk",
     price: "Free Entry",
-    image: "/images/real/real-kolkata-tram.jpg",
+    image: asset("/images/real/real-kolkata-tram.jpg"),
     tags: ["35mmFilm", "StreetChai", "OldKolkata", "TramRide"],
     time: "Sunday 7:00 AM",
     attendees: 29,
@@ -195,8 +196,8 @@ export default function MobileAppHomePage() {
           <div className="flex items-center gap-2 flex-shrink-0">
             <div className="relative w-7 h-7 rounded-lg overflow-hidden border border-black/5 shadow-xs">
               <Image
-                src="/images/kolkata-logo.png"
-                alt="Kolkata This Weekend"
+                src={asset("/images/kolkata-logo.png")}
+                alt=""
                 fill
                 sizes="28px"
                 className="object-cover"
@@ -231,7 +232,7 @@ export default function MobileAppHomePage() {
                 className="relative w-7 h-7 rounded-full overflow-hidden border-[2px] border-[#ecefed] shadow-xs"
               >
                 <Image
-                  src={src}
+                  src={asset(src)}
                   alt="Crew"
                   fill
                   sizes="28px"
@@ -402,7 +403,7 @@ export default function MobileAppHomePage() {
                   className="relative w-6 h-6 rounded-full overflow-hidden border-[2px] border-white shadow-xs"
                 >
                   <Image
-                    src={src}
+                    src={asset(src)}
                     alt="Member"
                     fill
                     sizes="24px"
@@ -570,7 +571,7 @@ export default function MobileAppHomePage() {
             >
               <div className="relative w-[150px] h-[210px] rounded-[22px] overflow-hidden shadow-md border border-black/5 group-hover:scale-102 transition-transform">
                 <Image
-                  src="/images/pujor-passport.png"
+                  src={asset("/images/pujor-passport.png")}
                   alt="Pujor Passport"
                   fill
                   sizes="150px"
@@ -597,7 +598,7 @@ export default function MobileAppHomePage() {
             >
               <div className="relative w-[150px] h-[210px] rounded-[22px] overflow-hidden shadow-md border border-black/5 group-hover:scale-102 transition-transform">
                 <Image
-                  src="/images/durgotsav-orkos.png"
+                  src={asset("/images/durgotsav-orkos.png")}
                   alt="Durgotsav at Orkos"
                   fill
                   sizes="150px"
@@ -624,7 +625,7 @@ export default function MobileAppHomePage() {
             >
               <div className="relative w-[150px] h-[210px] rounded-[22px] overflow-hidden shadow-md border border-black/5 group-hover:scale-102 transition-transform">
                 <Image
-                  src="/images/real/real-princep-ghat.jpg"
+                  src={asset("/images/real/real-princep-ghat.jpg")}
                   alt="Durgapuja River Cruise"
                   fill
                   sizes="150px"
@@ -648,7 +649,7 @@ export default function MobileAppHomePage() {
             >
               <div className="relative w-[150px] h-[210px] rounded-[22px] overflow-hidden shadow-md border border-black/5 group-hover:scale-102 transition-transform">
                 <Image
-                  src="/images/real/real-dandiya-celebration.jpg"
+                  src={asset("/images/real/real-dandiya-celebration.jpg")}
                   alt="Taaza Dandiya Raas"
                   fill
                   sizes="150px"
@@ -688,7 +689,7 @@ export default function MobileAppHomePage() {
               className="group block relative aspect-square rounded-[22px] overflow-hidden shadow-xs no-underline"
             >
               <Image
-                src="/images/real/real-roastery-coffee.jpg"
+                src={asset("/images/real/real-roastery-coffee.jpg")}
                 alt="Sienna Cafe"
                 fill
                 sizes="200px"
@@ -705,7 +706,7 @@ export default function MobileAppHomePage() {
               className="group block relative aspect-square rounded-[22px] overflow-hidden shadow-xs no-underline"
             >
               <Image
-                src="/images/real/real-peter-cat-chelo.jpg"
+                src={asset("/images/real/real-peter-cat-chelo.jpg")}
                 alt="Park Street Classics"
                 fill
                 sizes="200px"
@@ -722,7 +723,7 @@ export default function MobileAppHomePage() {
               className="group block relative aspect-square rounded-[22px] overflow-hidden shadow-xs no-underline"
             >
               <Image
-                src="/images/real/real-college-street-books.jpg"
+                src={asset("/images/real/real-college-street-books.jpg")}
                 alt="College Street Boipada"
                 fill
                 sizes="200px"
@@ -739,7 +740,7 @@ export default function MobileAppHomePage() {
               className="group block relative aspect-square rounded-[22px] overflow-hidden shadow-xs no-underline"
             >
               <Image
-                src="/images/real/real-capella-skybar.jpg"
+                src={asset("/images/real/real-capella-skybar.jpg")}
                 alt="Capella Skybar"
                 fill
                 sizes="200px"

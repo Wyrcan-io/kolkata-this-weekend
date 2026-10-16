@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Sparkles, Calendar, Film, Bookmark, Plus, Layers, ArrowLeft, Bell, Share2, Compass, Heart, ChevronRight } from "lucide-react";
 import BottomNavbar from "../components/BottomNavbar";
+import { asset } from "../../lib/assets";
 
 interface CollectionSection {
   id: string;
@@ -220,7 +221,7 @@ export default function HotlistsPage() {
                     className="relative w-[130px] h-[180px] shrink-0 rounded-[20px] overflow-hidden shadow-sm hover:shadow-md transition-all group cursor-pointer border border-neutral-100"
                   >
                     <Image
-                      src={card.imageSrc}
+                      src={asset(card.imageSrc)}
                       alt={card.title}
                       fill
                       sizes="130px"

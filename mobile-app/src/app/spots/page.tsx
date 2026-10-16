@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import AppHeader from "../components/AppHeader";
 import { useApp } from "../context";
+import { asset } from "../../lib/assets";
 import {
   Coffee,
   Wine,
@@ -201,7 +202,7 @@ export default function WeekendSpotsPage() {
                 {/* Spot Hero Image */}
                 <div className="relative w-full h-[170px] overflow-hidden bg-[#181a1e]">
                   <Image
-                    src={spot.imageSrc}
+                    src={asset(spot.imageSrc)}
                     alt={spot.name}
                     fill
                     sizes="(max-width: 440px) 420px, 440px"
