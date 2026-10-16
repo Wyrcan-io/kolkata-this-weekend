@@ -2,91 +2,118 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import AppHeader from "../components/AppHeader";
+import { ArrowLeft, Bell, Sparkles, CheckCircle2, Send, ArrowRight, ShieldCheck } from "lucide-react";
 import { useApp } from "../context";
-import { EventCategory, CityZone } from "../../lib/types";
+import { CityZone } from "../../lib/types";
+import BottomNavbar from "../components/BottomNavbar";
 
 export default function SubmitEventPage() {
-  const { isDarkMode, addSubmission } = useApp();
-  const [title, setTitle] = useState<string>("");
-  const [category, setCategory] = useState<EventCategory>("music");
-  const [zone, setZone] = useState<CityZone>("South Kolkata");
-  const [venueName, setVenueName] = useState<string>("");
-  const [neighborhood, setNeighborhood] = useState<string>("");
-  const [dayType, setDayType] = useState<"Friday" | "Saturday" | "Sunday">("Saturday");
-  const [timeStr, setTimeStr] = useState<string>("7:00 PM");
-  const [priceLabel, setPriceLabel] = useState<string>("₹399");
-  const [outboundUrl, setOutboundUrl] = useState<string>("");
-  const [contactInfo, setContactInfo] = useState<string>("");
-  const [isExtracting, setIsExtracting] = useState<boolean>(false);
-  const [isSuccess, setIsSuccess] = useState<boolean>(false);
+  const { addSubmission } = useApp();
 
-  // Simulated AI Multimodal Flyer Extractor (Gemini 1.5 Flash Preview)
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState<"music" | "workshops" | "theatre" | "heritage" | "nightlife">("music");
+  const [dayType, setDayType] = useState<"Friday" | "Saturday" | "Sunday">("Saturday");
+  const [timeStr, setTimeStr] = useState("7:00 PM");
+  const [zone, setZone] = useState<CityZone>("South Kolkata");
+  const [neighborhood, setNeighborhood] = useState("");
+  const [venueName, setVenueName] = useState("");
+  const [priceLabel, setPriceLabel] = useState("₹300 entry");
+  const [outboundUrl, setOutboundUrl] = useState("");
+  const [contactInfo, setContactInfo] = useState("");
+
+  const [isExtracting, setIsExtracting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
   const handleSimulateAI = () => {
     setIsExtracting(true);
     setTimeout(() => {
-      setTitle("Lake Market Sunset Acoustic & Open Mic");
+      setTitle("Monsoon Jazz Sessions Vol. 4");
       setCategory("music");
+      setDayType("Saturday");
+      setTimeStr("8:00 PM");
       setZone("South Kolkata");
-      setVenueName("Lake Club Lawn");
       setNeighborhood("Southern Avenue");
-      setDayType("Sunday");
-      setTimeStr("5:30 PM");
-      setPriceLabel("FREE (Registration required)");
-      setOutboundUrl("https://instagram.com/kolkataopenmic");
-      setContactInfo("9831000000");
+      setVenueName("Skinny Mo's Jazz Club");
+      setPriceLabel("₹499 (Beverage included)");
+      setOutboundUrl("https://instagram.com/skinnymosjazz");
+      setContactInfo("curator@skinnymos.in");
       setIsExtracting(false);
-    }, 1200);
+    }, 900);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title || !venueName) return;
+    if (!title || !venueName) {
+      alert("Please enter at least an event title and venue name!");
+      return;
+    }
 
     addSubmission({
       title,
       category,
-      zone,
-      venueName,
-      neighborhood: neighborhood || venueName,
       dayType,
       timeStr,
-      priceLabel: priceLabel || "FREE",
+      zone,
+      neighborhood: neighborhood || "Kolkata Central",
+      venueName,
+      priceLabel: priceLabel || "Free",
       outboundUrl: outboundUrl || "https://instagram.com",
-      contactInfo: contactInfo || "Organizer Direct",
-      flyerImage: "/images/concert_summer.jpg",
+      contactInfo: contactInfo || "Instagram DM",
     });
 
     setIsSuccess(true);
   };
 
   return (
-    <main
-      className={`w-full max-w-[440px] min-h-screen mx-auto pb-44 relative font-sans transition-colors duration-300 overflow-x-hidden ${
-        isDarkMode ? "bg-[#090a0f] text-white" : "bg-[#fbfbfb] text-neutral-900"
-      }`}
-    >
-      <AppHeader title="Submit an Event" subtitle="Zero-Friction Ingestion" />
+    <main className="w-full max-w-[440px] mx-auto min-h-screen bg-[#ECEFED] text-[#141519] px-4 pb-36 pt-4 font-sans select-none overflow-x-hidden">
+      {/* Top Header */}
+      <header className="flex items-center justify-between py-2 mb-4">
+        <div className="flex items-center gap-3">
+          <Link
+            href="/"
+            className="w-10 h-10 rounded-full bg-white shadow-[0_2px_12px_rgba(0,0,0,0.06)] border border-neutral-100 flex items-center justify-center text-neutral-800 hover:scale-105 active:scale-95 transition-all"
+            aria-label="Back"
+          >
+            <ArrowLeft size={18} strokeWidth={2.2} />
+          </Link>
+          <div>
+            <h1 className="text-xl font-black tracking-tight text-[#141519] lowercase">
+              submit your event
+            </h1>
+            <p className="text-xs font-semibold text-neutral-500">
+              free curation & live verification
+            </p>
+          </div>
+        </div>
 
-      <section className="px-5 py-4">
-        {/* Intro Banner */}
-        <div
-          className={`p-4 rounded-2xl border ${
-            isDarkMode ? "bg-[#141620] border-neutral-800" : "bg-white border-neutral-200"
-          }`}
+        <Link
+          href="/notifications"
+          className="relative w-10 h-10 rounded-full bg-white shadow-[0_2px_12px_rgba(0,0,0,0.06)] border border-neutral-100 flex items-center justify-center text-neutral-800 hover:scale-105 active:scale-95 transition-all"
+          aria-label="Notifications"
         >
-          <div className="flex items-center gap-2">
-            <span className="text-[10px] font-black uppercase tracking-wider bg-[#b51f2a] text-white px-2 py-0.5 rounded-full">
-              Organizer Dropzone
+          <Bell size={18} strokeWidth={2.2} />
+          <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-[#FF6859] text-white text-[9px] font-black flex items-center justify-center border-2 border-white">
+            2
+          </span>
+        </Link>
+      </header>
+
+      <section className="space-y-4">
+        {/* Banner Intro */}
+        <div className="bg-white rounded-[26px] p-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-neutral-100">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-[#FF6E5A] to-[#FFA17E] text-white px-2.5 py-0.5 rounded-full flex items-center gap-1">
+              <ShieldCheck size={12} />
+              <span>Free Community Listing</span>
             </span>
-            <span className="text-[11px] text-neutral-400 font-semibold">100% Free Listing</span>
+            <span className="text-xs text-neutral-400 font-semibold">&lt; 2hr Turnaround</span>
           </div>
 
-          <h2 className="text-base font-extrabold mt-2 leading-tight">
-            Have a gig, workshop, or event in Kolkata?
+          <h2 className="text-base font-extrabold text-[#141519] leading-tight">
+            Hosting a gig, workshop, or flea in Kolkata?
           </h2>
-          <p className="text-xs text-neutral-400 mt-1 leading-relaxed">
-            Upload your poster or flyer. Our AI extracts dates, venue, and ticket prices in seconds, then routes it to our 1-click moderation queue.
+          <p className="text-xs text-neutral-500 mt-1 leading-relaxed">
+            Drop your details or poster link. Our team reviews submissions within 2 hours for instant inclusion on the weekend feed.
           </p>
 
           {/* AI Instant Auto-Fill Trigger */}
@@ -94,30 +121,30 @@ export default function SubmitEventPage() {
             type="button"
             onClick={handleSimulateAI}
             disabled={isExtracting}
-            className="mt-3.5 w-full bg-neutral-800 hover:bg-neutral-700 text-neutral-200 font-bold text-xs py-2.5 px-3 rounded-xl border border-neutral-700/80 flex items-center justify-center gap-2 transition-all active:scale-98"
+            className="mt-4 w-full bg-neutral-100 hover:bg-neutral-200 text-[#141519] font-bold text-xs py-2.5 px-3 rounded-2xl border border-neutral-200/80 flex items-center justify-center gap-2 transition-all active:scale-98 cursor-pointer"
           >
-            <span>{isExtracting ? "⏳ Extracting details..." : "✨ Auto-Fill Sample Flyer with AI"}</span>
+            <Sparkles size={14} className="text-[#FF6859]" />
+            <span>{isExtracting ? "Extracting details..." : "Auto-Fill Sample Flyer with AI"}</span>
           </button>
         </div>
 
         {isSuccess ? (
-          <div
-            className={`mt-5 p-6 rounded-2xl border text-center ${
-              isDarkMode ? "bg-[#12141c] border-emerald-500/40" : "bg-emerald-50 border-emerald-200"
-            }`}
-          >
-            <span className="text-4xl block mb-2">🎉</span>
-            <h3 className="text-base font-extrabold text-emerald-400">Submission Received!</h3>
-            <p className="text-xs text-neutral-400 mt-1.5 leading-relaxed">
-              Your event &quot;<strong>{title}</strong>&quot; has been sent to our Kolkata curator queue. It will appear on the live feed within 2 hours.
+          <div className="bg-white rounded-[26px] p-6 text-center border border-neutral-100 shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+            <div className="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto mb-3 border border-emerald-100">
+              <CheckCircle2 size={24} />
+            </div>
+            <h3 className="text-base font-extrabold text-[#141519]">Submission Received!</h3>
+            <p className="text-xs text-neutral-500 mt-1.5 leading-relaxed">
+              Your event &quot;<strong>{title}</strong>&quot; has been sent to our Kolkata curator queue. It will appear on the live feed after quick verification.
             </p>
 
-            <div className="mt-4 flex flex-col gap-2">
+            <div className="mt-5 flex flex-col gap-2.5">
               <Link
                 href="/admin"
-                className="bg-[#b51f2a] hover:bg-[#961720] text-white text-xs font-bold py-2.5 px-4 rounded-xl transition-colors"
+                className="bg-[#141519] hover:bg-neutral-800 text-white text-xs font-bold py-3 px-4 rounded-2xl transition-colors flex items-center justify-center gap-1.5"
               >
-                Review in Admin Console ➔
+                <span>Review in Admin Console</span>
+                <ArrowRight size={14} />
               </Link>
               <button
                 type="button"
@@ -126,14 +153,14 @@ export default function SubmitEventPage() {
                   setTitle("");
                   setVenueName("");
                 }}
-                className="text-xs text-neutral-400 hover:underline py-1"
+                className="text-xs font-semibold text-neutral-500 hover:text-[#141519] py-1 cursor-pointer"
               >
                 Submit another event
               </button>
             </div>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="mt-5 space-y-3.5">
+          <form onSubmit={handleSubmit} className="bg-white rounded-[26px] p-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-neutral-100 space-y-4">
             {/* Event Title */}
             <div>
               <label className="text-[11px] font-bold text-neutral-400 block mb-1 uppercase tracking-wider">
@@ -142,37 +169,29 @@ export default function SubmitEventPage() {
               <input
                 type="text"
                 required
-                placeholder="e.g. Skinny Mo's Friday Jazz & Cocktails"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className={`w-full px-3.5 py-2.5 rounded-xl border text-xs font-medium focus:outline-none transition-colors ${
-                  isDarkMode
-                    ? "bg-[#12141c] border-neutral-800 text-white focus:border-[#b51f2a]"
-                    : "bg-white border-neutral-200 text-neutral-900 focus:border-red-400"
-                }`}
+                placeholder="e.g. Skinny Mo's Sunset Rooftop Jazz"
+                className="w-full px-4 py-2.5 rounded-2xl bg-neutral-50 border border-neutral-200/80 text-xs font-bold text-[#141519] focus:outline-none focus:border-[#FF6859]"
               />
             </div>
 
             {/* Category & Day Grid */}
-            <div className="grid grid-cols-2 gap-2.5">
+            <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="text-[11px] font-bold text-neutral-400 block mb-1 uppercase tracking-wider">
                   Category
                 </label>
                 <select
                   value={category}
-                  onChange={(e) => setCategory(e.target.value as EventCategory)}
-                  className={`w-full px-3 py-2.5 rounded-xl border text-xs font-semibold focus:outline-none ${
-                    isDarkMode
-                      ? "bg-[#12141c] border-neutral-800 text-white"
-                      : "bg-white border-neutral-200 text-neutral-900"
-                  }`}
+                  onChange={(e) => setCategory(e.target.value as any)}
+                  className="w-full px-3 py-2.5 rounded-2xl bg-neutral-50 border border-neutral-200/80 text-xs font-semibold text-[#141519] focus:outline-none focus:border-[#FF6859]"
                 >
-                  <option value="music">🎵 Live Music</option>
-                  <option value="workshops">🎨 Workshop</option>
-                  <option value="theatre">🎭 Theatre/Film</option>
-                  <option value="heritage">🏛️ Heritage Walk</option>
-                  <option value="nightlife">🍹 Nightlife</option>
+                  <option value="music">Live Music</option>
+                  <option value="workshops">Workshop</option>
+                  <option value="theatre">Theatre & Film</option>
+                  <option value="heritage">Heritage Walk</option>
+                  <option value="nightlife">Nightlife</option>
                 </select>
               </div>
 
@@ -183,11 +202,7 @@ export default function SubmitEventPage() {
                 <select
                   value={dayType}
                   onChange={(e) => setDayType(e.target.value as any)}
-                  className={`w-full px-3 py-2.5 rounded-xl border text-xs font-semibold focus:outline-none ${
-                    isDarkMode
-                      ? "bg-[#12141c] border-neutral-800 text-white"
-                      : "bg-white border-neutral-200 text-neutral-900"
-                  }`}
+                  className="w-full px-3 py-2.5 rounded-2xl bg-neutral-50 border border-neutral-200/80 text-xs font-semibold text-[#141519] focus:outline-none focus:border-[#FF6859]"
                 >
                   <option value="Friday">Friday (Tonight)</option>
                   <option value="Saturday">Saturday</option>
@@ -196,129 +211,124 @@ export default function SubmitEventPage() {
               </div>
             </div>
 
-            {/* Zone & Venue Grid */}
-            <div className="grid grid-cols-2 gap-2.5">
-              <div>
-                <label className="text-[11px] font-bold text-neutral-400 block mb-1 uppercase tracking-wider">
-                  City Zone
-                </label>
-                <select
-                  value={zone}
-                  onChange={(e) => setZone(e.target.value as CityZone)}
-                  className={`w-full px-3 py-2.5 rounded-xl border text-xs font-semibold focus:outline-none ${
-                    isDarkMode
-                      ? "bg-[#12141c] border-neutral-800 text-white"
-                      : "bg-white border-neutral-200 text-neutral-900"
-                  }`}
-                >
-                  <option value="South Kolkata">South Kolkata</option>
-                  <option value="Salt Lake & New Town">Salt Lake / New Town</option>
-                  <option value="Park Street & Central">Park Street / Central</option>
-                  <option value="North Kolkata">North Kolkata</option>
-                </select>
-              </div>
-
+            {/* Time & Price Grid */}
+            <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="text-[11px] font-bold text-neutral-400 block mb-1 uppercase tracking-wider">
                   Time
                 </label>
                 <input
                   type="text"
-                  placeholder="e.g. 7:30 PM"
                   value={timeStr}
                   onChange={(e) => setTimeStr(e.target.value)}
-                  className={`w-full px-3.5 py-2.5 rounded-xl border text-xs font-medium focus:outline-none ${
-                    isDarkMode
-                      ? "bg-[#12141c] border-neutral-800 text-white focus:border-[#b51f2a]"
-                      : "bg-white border-neutral-200 text-neutral-900"
-                  }`}
-                />
-              </div>
-            </div>
-
-            {/* Venue Name & Neighborhood */}
-            <div className="grid grid-cols-2 gap-2.5">
-              <div>
-                <label className="text-[11px] font-bold text-neutral-400 block mb-1 uppercase tracking-wider">
-                  Venue Name *
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="e.g. Sienna Cafe"
-                  value={venueName}
-                  onChange={(e) => setVenueName(e.target.value)}
-                  className={`w-full px-3.5 py-2.5 rounded-xl border text-xs font-medium focus:outline-none ${
-                    isDarkMode
-                      ? "bg-[#12141c] border-neutral-800 text-white focus:border-[#b51f2a]"
-                      : "bg-white border-neutral-200 text-neutral-900"
-                  }`}
+                  placeholder="e.g. 7:30 PM"
+                  className="w-full px-4 py-2.5 rounded-2xl bg-neutral-50 border border-neutral-200/80 text-xs font-semibold text-[#141519] focus:outline-none focus:border-[#FF6859]"
                 />
               </div>
 
               <div>
                 <label className="text-[11px] font-bold text-neutral-400 block mb-1 uppercase tracking-wider">
-                  Price / Free
+                  Ticket Price / Entry
                 </label>
                 <input
                   type="text"
-                  placeholder="e.g. FREE or ₹499"
                   value={priceLabel}
                   onChange={(e) => setPriceLabel(e.target.value)}
-                  className={`w-full px-3.5 py-2.5 rounded-xl border text-xs font-medium focus:outline-none ${
-                    isDarkMode
-                      ? "bg-[#12141c] border-neutral-800 text-white focus:border-[#b51f2a]"
-                      : "bg-white border-neutral-200 text-neutral-900"
-                  }`}
+                  placeholder="e.g. FREE or ₹499"
+                  className="w-full px-4 py-2.5 rounded-2xl bg-neutral-50 border border-neutral-200/80 text-xs font-semibold text-[#141519] focus:outline-none focus:border-[#FF6859]"
                 />
               </div>
             </div>
 
-            {/* Outbound Link */}
-            <div>
-              <label className="text-[11px] font-bold text-neutral-400 block mb-1 uppercase tracking-wider">
-                Outbound Action Link (Instagram / Ticket / Form)
-              </label>
-              <input
-                type="url"
-                placeholder="https://instagram.com/your-event-post"
-                value={outboundUrl}
-                onChange={(e) => setOutboundUrl(e.target.value)}
-                className={`w-full px-3.5 py-2.5 rounded-xl border text-xs font-medium focus:outline-none ${
-                  isDarkMode
-                    ? "bg-[#12141c] border-neutral-800 text-white focus:border-[#b51f2a]"
-                    : "bg-white border-neutral-200 text-neutral-900"
-                }`}
-              />
+            {/* Zone & Neighborhood */}
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="text-[11px] font-bold text-neutral-400 block mb-1 uppercase tracking-wider">
+                  Zone
+                </label>
+                <select
+                  value={zone}
+                  onChange={(e) => setZone(e.target.value as any)}
+                  className="w-full px-3 py-2.5 rounded-2xl bg-neutral-50 border border-neutral-200/80 text-xs font-semibold text-[#141519] focus:outline-none focus:border-[#FF6859]"
+                >
+                  <option value="South Kolkata">South Kolkata</option>
+                  <option value="North Kolkata">North Kolkata</option>
+                  <option value="Park Street & Central">Park Street & Central</option>
+                  <option value="Salt Lake & New Town">Salt Lake & New Town</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="text-[11px] font-bold text-neutral-400 block mb-1 uppercase tracking-wider">
+                  Neighborhood
+                </label>
+                <input
+                  type="text"
+                  value={neighborhood}
+                  onChange={(e) => setNeighborhood(e.target.value)}
+                  placeholder="e.g. Southern Avenue"
+                  className="w-full px-4 py-2.5 rounded-2xl bg-neutral-50 border border-neutral-200/80 text-xs font-semibold text-[#141519] focus:outline-none focus:border-[#FF6859]"
+                />
+              </div>
             </div>
 
-            {/* WhatsApp Contact */}
+            {/* Venue Name */}
             <div>
               <label className="text-[11px] font-bold text-neutral-400 block mb-1 uppercase tracking-wider">
-                Organizer WhatsApp / Phone (Private verification)
+                Venue Name *
               </label>
               <input
                 type="text"
-                placeholder="e.g. 9830123456"
-                value={contactInfo}
-                onChange={(e) => setContactInfo(e.target.value)}
-                className={`w-full px-3.5 py-2.5 rounded-xl border text-xs font-medium focus:outline-none ${
-                  isDarkMode
-                    ? "bg-[#12141c] border-neutral-800 text-white focus:border-[#b51f2a]"
-                    : "bg-white border-neutral-200 text-neutral-900"
-                }`}
+                required
+                value={venueName}
+                onChange={(e) => setVenueName(e.target.value)}
+                placeholder="e.g. TopCat CCU, Sienna Cafe, Skinny Mo's"
+                className="w-full px-4 py-2.5 rounded-2xl bg-neutral-50 border border-neutral-200/80 text-xs font-bold text-[#141519] focus:outline-none focus:border-[#FF6859]"
               />
             </div>
 
+            {/* Ticket Link / Social */}
+            <div>
+              <label className="text-[11px] font-bold text-neutral-400 block mb-1 uppercase tracking-wider">
+                Link to Tickets / Instagram Post
+              </label>
+              <input
+                type="url"
+                value={outboundUrl}
+                onChange={(e) => setOutboundUrl(e.target.value)}
+                placeholder="https://instagram.com/p/... or insider.in/..."
+                className="w-full px-4 py-2.5 rounded-2xl bg-neutral-50 border border-neutral-200/80 text-xs font-semibold text-[#141519] focus:outline-none focus:border-[#FF6859]"
+              />
+            </div>
+
+            {/* Submitter Contact */}
+            <div>
+              <label className="text-[11px] font-bold text-neutral-400 block mb-1 uppercase tracking-wider">
+                Your Contact (WhatsApp / Phone / IG Handle)
+              </label>
+              <input
+                type="text"
+                value={contactInfo}
+                onChange={(e) => setContactInfo(e.target.value)}
+                placeholder="e.g. @kolkatamusiclive or 98300xxxxx"
+                className="w-full px-4 py-2.5 rounded-2xl bg-neutral-50 border border-neutral-200/80 text-xs font-semibold text-[#141519] focus:outline-none focus:border-[#FF6859]"
+              />
+            </div>
+
+            {/* Submit CTA */}
             <button
               type="submit"
-              className="mt-4 w-full bg-[#b51f2a] hover:bg-[#961720] text-white font-extrabold text-xs py-3 rounded-2xl transition-transform active:scale-98 shadow-sm"
+              className="mt-2 w-full bg-gradient-to-r from-[#FF6E5A] to-[#FFA17E] text-white font-black text-xs py-3.5 px-4 rounded-2xl transition-transform active:scale-98 shadow-md shadow-red-200 flex items-center justify-center gap-2 cursor-pointer"
             >
-              Submit Event for Free Verification 🚀
+              <Send size={14} />
+              <span>Submit Event for Free Verification</span>
             </button>
           </form>
         )}
       </section>
+
+      {/* Floating Bottom Navigation */}
+      <BottomNavbar />
     </main>
   );
 }

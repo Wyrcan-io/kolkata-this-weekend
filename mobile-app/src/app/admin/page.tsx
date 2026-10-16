@@ -2,70 +2,87 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import AppHeader from "../components/AppHeader";
+import { ArrowLeft, Bell, MapPin, Calendar, ExternalLink, Phone, Check, X, CheckCircle2, ShieldCheck, Inbox } from "lucide-react";
 import { useApp } from "../context";
+import BottomNavbar from "../components/BottomNavbar";
 
 export default function AdminConsolePage() {
-  const { isDarkMode, submissions, approveSubmission, rejectSubmission, allEvents, polls } = useApp();
-  const [activeTab, setActiveTab] = useState<"pending" | "approved" | "rejected">("pending");
+  const { submissions, approveSubmission, rejectSubmission } = useApp();
+  const [activeTab, setActiveTab] = useState<"pending" | "approved" | "all">("pending");
 
-  const filteredSubs = submissions.filter((s) => s.status === activeTab);
-  const pendingCount = submissions.filter((s) => s.status === "pending").length;
+  const filteredSubs = submissions.filter((s) => {
+    if (activeTab === "all") return true;
+    return s.status === activeTab;
+  });
 
   return (
-    <main
-      className={`w-full max-w-[440px] min-h-screen mx-auto pb-44 relative font-sans transition-colors duration-300 overflow-x-hidden ${
-        isDarkMode ? "bg-[#090a0f] text-white" : "bg-[#fbfbfb] text-neutral-900"
-      }`}
-    >
-      <AppHeader title="Admin Moderation" subtitle="Mobile 1-Click Approval Gate" />
-
-      <section className="px-5 py-4 space-y-4">
-        {/* Quick Health Stats */}
-        <div className="grid grid-cols-3 gap-2 text-center">
-          <div
-            className={`p-3 rounded-2xl border ${
-              isDarkMode ? "bg-[#12141c] border-neutral-800" : "bg-white border-neutral-200"
-            }`}
+    <main className="w-full max-w-[440px] mx-auto min-h-screen bg-[#ECEFED] text-[#141519] px-4 pb-36 pt-4 font-sans select-none overflow-x-hidden">
+      {/* Top Header */}
+      <header className="flex items-center justify-between py-2 mb-4">
+        <div className="flex items-center gap-3">
+          <Link
+            href="/"
+            className="w-10 h-10 rounded-full bg-white shadow-[0_2px_12px_rgba(0,0,0,0.06)] border border-neutral-100 flex items-center justify-center text-neutral-800 hover:scale-105 active:scale-95 transition-all"
+            aria-label="Back"
           >
-            <span className="text-xl font-black text-red-500">{allEvents.length}</span>
-            <span className="block text-[10px] font-bold text-neutral-400 uppercase mt-0.5">Live Events</span>
-          </div>
-          <div
-            className={`p-3 rounded-2xl border ${
-              isDarkMode ? "bg-[#12141c] border-neutral-800" : "bg-white border-neutral-200"
-            }`}
-          >
-            <span className="text-xl font-black text-amber-500">{pendingCount}</span>
-            <span className="block text-[10px] font-bold text-neutral-400 uppercase mt-0.5">Pending</span>
-          </div>
-          <div
-            className={`p-3 rounded-2xl border ${
-              isDarkMode ? "bg-[#12141c] border-neutral-800" : "bg-white border-neutral-200"
-            }`}
-          >
-            <span className="text-xl font-black text-emerald-500">{Object.keys(polls).length}</span>
-            <span className="block text-[10px] font-bold text-neutral-400 uppercase mt-0.5">Active Polls</span>
+            <ArrowLeft size={18} strokeWidth={2.2} />
+          </Link>
+          <div>
+            <h1 className="text-xl font-black tracking-tight text-[#141519] lowercase">
+              curator queue
+            </h1>
+            <p className="text-xs font-semibold text-neutral-500">
+              1-click event moderation
+            </p>
           </div>
         </div>
 
+        <Link
+          href="/notifications"
+          className="relative w-10 h-10 rounded-full bg-white shadow-[0_2px_12px_rgba(0,0,0,0.06)] border border-neutral-100 flex items-center justify-center text-neutral-800 hover:scale-105 active:scale-95 transition-all"
+          aria-label="Notifications"
+        >
+          <Bell size={18} strokeWidth={2.2} />
+          <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-[#FF6859] text-white text-[9px] font-black flex items-center justify-center border-2 border-white">
+            2
+          </span>
+        </Link>
+      </header>
+
+      <section className="space-y-4">
+        {/* Banner Notice */}
+        <div className="bg-white rounded-[26px] p-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-neutral-100">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-[10px] font-bold uppercase tracking-wider bg-emerald-50 text-emerald-700 px-2.5 py-0.5 rounded-full flex items-center gap-1 border border-emerald-100">
+              <ShieldCheck size={12} />
+              <span>Lead Curator Access</span>
+            </span>
+            <span className="text-xs text-neutral-400 font-semibold">{submissions.length} Total</span>
+          </div>
+
+          <h2 className="text-base font-extrabold text-[#141519] leading-tight">
+            Organizer Submissions
+          </h2>
+          <p className="text-xs text-neutral-500 mt-1 leading-relaxed">
+            Approving adds the event directly to the live feed and the interactive weekend circuit planner engine.
+          </p>
+        </div>
+
         {/* Tab Filters */}
-        <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-neutral-900/60 border border-neutral-800">
-          {[
-            { id: "pending", label: `Pending (${pendingCount})` },
-            { id: "approved", label: "Approved" },
-            { id: "rejected", label: "Rejected" },
-          ].map((tab) => (
+        <div className="flex items-center gap-2">
+          {(["pending", "approved", "all"] as const).map((tab) => (
             <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id as any)}
-              className={`flex-1 py-1.5 text-xs font-bold rounded-xl transition-all ${
-                activeTab === tab.id
-                  ? "bg-[#b51f2a] text-white shadow-sm"
-                  : "text-neutral-400 hover:text-white"
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`px-4 py-2 rounded-full text-xs font-bold capitalize transition-all cursor-pointer ${
+                activeTab === tab
+                  ? "bg-[#141519] text-white shadow-xs"
+                  : "bg-white text-neutral-600 hover:bg-neutral-100 border border-neutral-200/60"
               }`}
             >
-              {tab.label}
+              {tab} (
+              {submissions.filter((s) => (tab === "all" ? true : s.status === tab)).length}
+              )
             </button>
           ))}
         </div>
@@ -73,18 +90,14 @@ export default function AdminConsolePage() {
         {/* Submissions List */}
         <div className="space-y-3">
           {filteredSubs.length === 0 ? (
-            <div
-              className={`text-center py-12 rounded-2xl border ${
-                isDarkMode ? "bg-[#12141c] border-neutral-800" : "bg-white border-neutral-200"
-              }`}
-            >
-              <span className="text-2xl block mb-1">🎉</span>
-              <p className="text-xs font-bold text-neutral-400">
+            <div className="bg-white rounded-[26px] p-8 text-center border border-neutral-100 shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+              <Inbox size={32} className="mx-auto text-neutral-300 mb-2" />
+              <p className="text-xs font-bold text-neutral-500">
                 No {activeTab} submissions right now.
               </p>
               <Link
                 href="/submit"
-                className="mt-3 inline-block text-xs font-bold text-[#b51f2a] hover:underline"
+                className="mt-3 inline-block text-xs font-bold text-[#FF6859] hover:underline"
               >
                 + Test Submit an Event
               </Link>
@@ -93,71 +106,71 @@ export default function AdminConsolePage() {
             filteredSubs.map((sub) => (
               <div
                 key={sub.id}
-                className={`p-4 rounded-2xl border transition-all ${
-                  isDarkMode ? "bg-[#12141c] border-neutral-800" : "bg-white border-neutral-200 shadow-xs"
-                }`}
+                className="bg-white rounded-[26px] p-5 border border-neutral-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] text-left"
               >
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-bold uppercase tracking-wider bg-neutral-800 text-neutral-300 px-2 py-0.5 rounded-md">
+                <div className="flex items-center justify-between pb-2 border-b border-neutral-100">
+                  <span className="text-[10px] font-bold uppercase tracking-wider bg-neutral-100 text-neutral-700 px-2.5 py-0.5 rounded-full">
                     {sub.category} • {sub.zone}
                   </span>
-                  <span className="text-[10px] text-neutral-500 font-medium">{sub.submittedAt}</span>
+                  <span className="text-[10px] text-neutral-400 font-medium">{sub.submittedAt}</span>
                 </div>
 
-                <h3 className="text-sm font-extrabold mt-1.5 leading-snug">{sub.title}</h3>
+                <h3 className="text-sm font-extrabold text-[#141519] mt-2 leading-snug">{sub.title}</h3>
 
-                <div className="mt-2 space-y-1 text-xs text-neutral-400">
-                  <p>
-                    📍 <strong className="text-neutral-300">{sub.venueName}</strong> ({sub.neighborhood})
+                <div className="mt-2.5 space-y-1.5 text-xs text-neutral-500">
+                  <p className="flex items-center gap-1.5">
+                    <MapPin size={13} className="text-neutral-400 shrink-0" />
+                    <span><strong className="text-[#141519]">{sub.venueName}</strong> ({sub.neighborhood})</span>
                   </p>
-                  <p>
-                    📅 {sub.dayType} at {sub.timeStr} • 💵 {sub.priceLabel}
+                  <p className="flex items-center gap-1.5">
+                    <Calendar size={13} className="text-neutral-400 shrink-0" />
+                    <span>{sub.dayType} at {sub.timeStr} • {sub.priceLabel}</span>
                   </p>
-                  <p className="truncate text-neutral-500">
-                    🔗 <a href={sub.outboundUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">{sub.outboundUrl}</a>
+                  <p className="flex items-center gap-1.5 truncate text-neutral-500">
+                    <ExternalLink size={13} className="text-neutral-400 shrink-0" />
+                    <a href={sub.outboundUrl} target="_blank" rel="noopener noreferrer" className="hover:underline text-[#FF6859] font-medium">
+                      {sub.outboundUrl}
+                    </a>
                   </p>
-                  <p className="text-[11px] text-neutral-500">
-                    📱 Submitter contact: <strong className="text-neutral-300">{sub.contactInfo}</strong>
+                  <p className="flex items-center gap-1.5 text-[11px] text-neutral-500">
+                    <Phone size={13} className="text-neutral-400 shrink-0" />
+                    <span>Contact: <strong className="text-[#141519]">{sub.contactInfo}</strong></span>
                   </p>
                 </div>
 
                 {sub.status === "pending" && (
-                  <div className="mt-3.5 pt-3 border-t border-neutral-800/40 flex items-center gap-2">
+                  <div className="mt-4 pt-3 border-t border-neutral-100 flex items-center gap-2">
                     <button
                       onClick={() => approveSubmission(sub.id)}
-                      className="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs py-2 rounded-xl transition-transform active:scale-95 shadow-sm"
+                      className="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs py-2.5 rounded-xl transition-transform active:scale-95 shadow-xs flex items-center justify-center gap-1.5 cursor-pointer"
                     >
-                      ✓ 1-Click Approve & Publish
+                      <Check size={14} strokeWidth={2.5} />
+                      <span>Approve & Publish</span>
                     </button>
                     <button
                       onClick={() => rejectSubmission(sub.id)}
-                      className="px-3.5 bg-neutral-800 hover:bg-neutral-700 text-neutral-300 font-bold text-xs py-2 rounded-xl transition-colors"
+                      className="px-4 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 font-bold text-xs py-2.5 rounded-xl transition-colors flex items-center justify-center gap-1 cursor-pointer"
                     >
-                      ✕ Reject
+                      <X size={14} />
+                      <span>Reject</span>
                     </button>
                   </div>
                 )}
 
                 {sub.status === "approved" && (
-                  <div className="mt-2 text-[11px] font-bold text-emerald-400 flex items-center gap-1">
-                    <span>✓ Live on feed</span>
+                  <div className="mt-3 pt-2 border-t border-neutral-100 text-[11px] font-bold text-emerald-600 flex items-center gap-1.5">
+                    <CheckCircle2 size={13} />
+                    <span>Live on Kolkata feed</span>
                   </div>
                 )}
               </div>
             ))
           )}
         </div>
-
-        {/* Fast Link to Feed */}
-        <div className="pt-2 text-center">
-          <Link
-            href="/events"
-            className="text-xs font-bold text-[#b51f2a] hover:underline"
-          >
-            ← Back to Live Public Feed
-          </Link>
-        </div>
       </section>
+
+      {/* Floating Bottom Navigation */}
+      <BottomNavbar />
     </main>
   );
 }

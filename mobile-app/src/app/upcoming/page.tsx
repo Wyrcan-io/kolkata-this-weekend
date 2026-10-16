@@ -2,8 +2,9 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import AppHeader from "../components/AppHeader";
-import { useApp } from "../context";
+import Link from "next/link";
+import { ArrowLeft, Bell, MapPin, Users, Check, Sparkles } from "lucide-react";
+import BottomNavbar from "../components/BottomNavbar";
 
 interface UpcomingEvent {
   id: string;
@@ -76,7 +77,6 @@ const UPCOMING_EVENTS: UpcomingEvent[] = [
 ];
 
 export default function UpcomingPage() {
-  const { isDarkMode } = useApp();
   const [reminders, setReminders] = useState<Record<string, boolean>>({});
 
   const toggleReminder = (id: string) => {
@@ -87,57 +87,67 @@ export default function UpcomingPage() {
   };
 
   return (
-    <main
-      className={`w-full max-w-[440px] min-h-screen mx-auto pb-32 relative font-sans transition-colors duration-300 overflow-x-hidden ${
-        isDarkMode ? "bg-[#090a0f] text-white" : "bg-[#fbfbfb] text-neutral-900"
-      }`}
-    >
-      <AppHeader
-        title="Upcoming in Kolkata"
-        subtitle="City festivals, mega concerts & winter calendar"
-        showBackButton={true}
-      />
+    <main className="w-full max-w-[440px] mx-auto min-h-screen bg-[#ECEFED] text-[#141519] px-4 pb-36 pt-4 font-sans select-none overflow-x-hidden">
+      {/* Top Header */}
+      <header className="flex items-center justify-between py-2 mb-4">
+        <div className="flex items-center gap-3">
+          <Link
+            href="/"
+            className="w-10 h-10 rounded-full bg-white shadow-[0_2px_12px_rgba(0,0,0,0.06)] border border-neutral-100 flex items-center justify-center text-neutral-800 hover:scale-105 active:scale-95 transition-all"
+            aria-label="Back"
+          >
+            <ArrowLeft size={18} strokeWidth={2.2} />
+          </Link>
+          <div>
+            <h1 className="text-xl font-black tracking-tight text-[#141519] lowercase">
+              upcoming in kolkata
+            </h1>
+            <p className="text-xs font-semibold text-neutral-500">
+              festivals, mega concerts & winter calendar
+            </p>
+          </div>
+        </div>
+
+        <Link
+          href="/notifications"
+          className="relative w-10 h-10 rounded-full bg-white shadow-[0_2px_12px_rgba(0,0,0,0.06)] border border-neutral-100 flex items-center justify-center text-neutral-800 hover:scale-105 active:scale-95 transition-all"
+          aria-label="Notifications"
+        >
+          <Bell size={18} strokeWidth={2.2} />
+          <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-[#FF6859] text-white text-[9px] font-black flex items-center justify-center border-2 border-white">
+            2
+          </span>
+        </Link>
+      </header>
 
       {/* Hero Season Banner */}
-      <div className="px-5 py-3">
-        <div
-          className={`rounded-2xl p-4 border relative overflow-hidden ${
-            isDarkMode
-              ? "bg-[#12141c] border-neutral-800 text-white"
-              : "bg-white border-neutral-200/80 text-neutral-900 shadow-xs"
-          }`}
-        >
-          <div className="flex items-center gap-2">
-            <span className="text-[9.5px] font-black uppercase tracking-wider text-[#c6121f] bg-red-600/10 px-2 py-0.5 rounded-full">
-              Autumn & Winter 2026/27
-            </span>
-            <span className="text-[10px] text-neutral-400 font-medium">Early Access</span>
-          </div>
-
-          <h2 className="text-[16.5px] font-extrabold mt-2 leading-tight">
-            Kolkata's Grandest Season is Ahead
-          </h2>
-          <p className="text-xs text-neutral-400 mt-1 leading-relaxed">
-            From the Chandannagar lights of Kali Puja to the winter lights of Park Street and the world-famous Book Fair. Set reminders to get early-bird notifications.
-          </p>
+      <div className="bg-white rounded-[26px] p-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-neutral-100 mb-4">
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-[#FF6859] bg-[#FFF2F0] px-2.5 py-0.5 rounded-full border border-red-100">
+            Autumn & Winter 2026/27
+          </span>
+          <span className="text-xs text-neutral-400 font-semibold">Early Access</span>
         </div>
+
+        <h2 className="text-base font-extrabold text-[#141519] leading-tight">
+          Kolkata&apos;s Grandest Season is Ahead
+        </h2>
+        <p className="text-xs text-neutral-500 mt-1 leading-relaxed">
+          From the Chandannagar lights of Kali Puja to the winter lights of Park Street and the world-famous Book Fair. Set reminders to get early-bird notifications.
+        </p>
       </div>
 
       {/* Timeline List */}
-      <section className="px-5 py-2 space-y-4">
+      <section className="space-y-4">
         {UPCOMING_EVENTS.map((event) => {
           const isSet = !!reminders[event.id];
           return (
             <div
               key={event.id}
-              className={`rounded-[22px] overflow-hidden border transition-all ${
-                isDarkMode
-                  ? "bg-[#12141c] border-neutral-800/80 text-white"
-                  : "bg-white border-neutral-200/80 text-neutral-900 shadow-xs"
-              }`}
+              className="bg-white rounded-[26px] overflow-hidden border border-neutral-100 shadow-[0_4px_24px_rgba(0,0,0,0.04)] transition-all"
             >
               {/* Event Image Banner with Date Tag */}
-              <div className="relative w-full h-[150px] overflow-hidden">
+              <div className="relative w-full h-[160px] overflow-hidden">
                 <Image
                   src={event.imageSrc}
                   alt={event.title}
@@ -145,50 +155,62 @@ export default function UpcomingPage() {
                   sizes="(max-width: 440px) 400px, 500px"
                   className="object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
 
                 {/* Date & Category Badges */}
                 <div className="absolute top-3 inset-x-3.5 flex items-center justify-between z-10">
-                  <span className="text-[9.5px] font-black uppercase px-2.5 py-1 rounded-full bg-red-600 text-white shadow-sm">
+                  <span className="text-[10px] font-extrabold uppercase px-3 py-1 rounded-full bg-gradient-to-r from-[#FF6E5A] to-[#FFA17E] text-white shadow-sm">
                     {event.dates}
                   </span>
 
-                  <span className="text-[9.5px] font-black uppercase px-2 py-0.5 rounded bg-black/60 backdrop-blur-md text-white border border-white/20">
+                  <span className="text-[10px] font-bold uppercase px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-white border border-white/20">
                     {event.category}
                   </span>
                 </div>
 
                 {/* Bottom Title on Image */}
-                <div className="absolute bottom-2.5 inset-x-3.5 z-10 text-white">
+                <div className="absolute bottom-3 inset-x-3.5 z-10 text-white">
                   <h3 className="text-base font-extrabold leading-tight">
                     {event.title}
                   </h3>
-                  <p className="text-[11px] text-neutral-300 mt-0.5 font-medium">
-                    📍 {event.venue}
+                  <p className="text-[11px] text-neutral-300 mt-0.5 font-medium flex items-center gap-1">
+                    <MapPin size={11} className="text-[#FFA17E]" />
+                    <span>{event.venue}</span>
                   </p>
                 </div>
               </div>
 
               {/* Body */}
-              <div className="p-3.5 text-left space-y-2.5">
-                <p className="text-xs text-neutral-400 leading-snug">
+              <div className="p-4 text-left space-y-3">
+                <p className="text-xs text-neutral-600 leading-relaxed">
                   {event.desc}
                 </p>
 
-                <div className="flex items-center justify-between pt-1 border-t border-neutral-700/20">
-                  <span className="text-[11px] font-bold text-amber-500">
-                    👥 {event.expectedTurnout}
+                <div className="flex items-center justify-between pt-2 border-t border-neutral-100">
+                  <span className="text-[11px] font-bold text-amber-600 flex items-center gap-1.5">
+                    <Users size={13} />
+                    <span>{event.expectedTurnout}</span>
                   </span>
 
                   <button
                     onClick={() => toggleReminder(event.id)}
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                    className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                       isSet
                         ? "bg-emerald-600 text-white"
-                        : "bg-[#c6121f] text-white hover:bg-red-700 shadow-xs"
+                        : "bg-[#141519] text-white hover:bg-neutral-800 shadow-xs"
                     }`}
                   >
-                    <span>{isSet ? "Reminder Set ✓" : "Remind Me 🔔"}</span>
+                    {isSet ? (
+                      <>
+                        <Check size={12} strokeWidth={2.5} />
+                        <span>Reminder Set</span>
+                      </>
+                    ) : (
+                      <>
+                        <Bell size={12} />
+                        <span>Remind Me</span>
+                      </>
+                    )}
                   </button>
                 </div>
               </div>
@@ -196,6 +218,9 @@ export default function UpcomingPage() {
           );
         })}
       </section>
+
+      {/* Floating Bottom Navigation */}
+      <BottomNavbar />
     </main>
   );
 }

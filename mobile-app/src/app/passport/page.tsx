@@ -2,8 +2,23 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import AppHeader from "../components/AppHeader";
+import {
+  ArrowLeft,
+  Bell,
+  Coffee,
+  Footprints,
+  Landmark,
+  Car,
+  Utensils,
+  Sparkles,
+  Download,
+  Share2,
+  Check,
+  Plus,
+  ArrowRight,
+} from "lucide-react";
 import { useApp } from "../context";
+import BottomNavbar from "../components/BottomNavbar";
 
 interface Pandal {
   id: string;
@@ -49,36 +64,36 @@ const ARCHETYPES = [
     id: "maddox_chillar",
     title: "Maddox Adda Champion",
     tagline: "8 hours at Maddox, 2 pandals actually seen",
-    icon: "☕",
+    icon: Coffee,
   },
   {
     id: "south_commando",
     title: "South CCU Commando",
     tagline: "Walked 35,000 steps from Gariahat to Chetla",
-    icon: "🏃",
+    icon: Footprints,
   },
   {
     id: "north_purist",
     title: "North Heritage Purist",
     tagline: "Baghbazar, Rajbari & pure Dhunuchi naach",
-    icon: "🏛️",
+    icon: Landmark,
   },
   {
     id: "midnight_jumper",
     title: "Midnight VIP Jumper",
     tagline: "Hit Sreebhumi at 3:30 AM with car convoy",
-    icon: "🚗",
+    icon: Car,
   },
   {
     id: "food_first",
     title: "Food First, Pandal Second",
     tagline: "Came for the Egg Roll, stayed for the lighting",
-    icon: "🌯",
+    icon: Utensils,
   },
 ];
 
 export default function PujoPassportPage() {
-  const { isDarkMode, showToast } = useApp();
+  const { showToast } = useApp();
   const [userName, setUserName] = useState<string>("Abhirup");
   const [archetype, setArchetype] = useState<string>("maddox_chillar");
   const [selectedPandals, setSelectedPandals] = useState<string[]>([
@@ -94,8 +109,6 @@ export default function PujoPassportPage() {
   const [estimatedSteps, setEstimatedSteps] = useState<number>(28000);
   const [previewDataUrl, setPreviewDataUrl] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
-
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   const togglePandal = (id: string) => {
     setSelectedPandals((prev) =>
@@ -125,16 +138,16 @@ export default function PujoPassportPage() {
 
     // 2. Vintage Postal Outer Double Border
     ctx.lineWidth = 6;
-    ctx.strokeStyle = "#B51F2A";
+    ctx.strokeStyle = "#FF6859";
     ctx.strokeRect(40, 40, 1000, 1840);
 
     ctx.lineWidth = 2;
-    ctx.strokeStyle = "#8F2028";
+    ctx.strokeStyle = "#E05041";
     ctx.strokeRect(52, 52, 976, 1816);
 
     // Decorative corner notches
     const drawCorner = (x: number, y: number) => {
-      ctx.fillStyle = "#B51F2A";
+      ctx.fillStyle = "#FF6859";
       ctx.fillRect(x - 12, y - 12, 24, 24);
     };
     drawCorner(52, 52);
@@ -143,7 +156,7 @@ export default function PujoPassportPage() {
     drawCorner(1028, 1868);
 
     // 3. Top Banner: Official Stamp Header
-    ctx.fillStyle = "#B51F2A";
+    ctx.fillStyle = "#141519";
     ctx.fillRect(80, 80, 920, 110);
 
     ctx.fillStyle = "#FFFFFF";
@@ -152,7 +165,7 @@ export default function PujoPassportPage() {
     ctx.fillText("PUJOR PASSPORT • পূজোর পাসপোর্ট 2026", 540, 150);
 
     ctx.font = "600 24px sans-serif";
-    ctx.fillStyle = "#FFD9D9";
+    ctx.fillStyle = "#FFA17E";
     ctx.fillText("OFFICIAL KOLKATA PANDAL HOPPING CERTIFICATION", 540, 178);
 
     // 4. Passport Holder Section
@@ -161,17 +174,17 @@ export default function PujoPassportPage() {
     ctx.font = "bold 24px sans-serif";
     ctx.fillText("PASSPORT ISSUED TO:", 90, 250);
 
-    ctx.fillStyle = "#241C1C";
+    ctx.fillStyle = "#141519";
     ctx.font = "900 68px sans-serif";
     ctx.fillText((userName || "Kolkata Hopper").toUpperCase(), 90, 320);
 
-    // 5. Archetype Stamp Badge (Rubber Stamp Look)
+    // 5. Archetype Stamp Badge
     ctx.save();
     ctx.translate(540, 420);
-    ctx.rotate(-0.03); // Slight tilt
+    ctx.rotate(-0.02);
 
-    ctx.fillStyle = "#FFF2F2";
-    ctx.strokeStyle = "#B51F2A";
+    ctx.fillStyle = "#FFF4F2";
+    ctx.strokeStyle = "#FF6859";
     ctx.lineWidth = 4;
     ctx.beginPath();
     ctx.roundRect(-450, -55, 900, 110, 20);
@@ -179,20 +192,20 @@ export default function PujoPassportPage() {
     ctx.stroke();
 
     ctx.textAlign = "center";
-    ctx.fillStyle = "#B51F2A";
+    ctx.fillStyle = "#FF6859";
     ctx.font = "bold 40px sans-serif";
-    ctx.fillText(`${selectedArch.icon} ${selectedArch.title.toUpperCase()}`, 0, 5);
+    ctx.fillText(selectedArch.title.toUpperCase(), 0, 5);
 
     ctx.font = "600 22px sans-serif";
-    ctx.fillStyle = "#802025";
+    ctx.fillStyle = "#555";
     ctx.fillText(`"${selectedArch.tagline}"`, 0, 36);
     ctx.restore();
 
-    // 6. Circular Vintage Rubber Postmark
+    // 6. Circular Rubber Postmark
     ctx.save();
     ctx.translate(900, 280);
     ctx.rotate(0.12);
-    ctx.strokeStyle = "rgba(181, 31, 42, 0.75)";
+    ctx.strokeStyle = "rgba(255, 104, 89, 0.75)";
     ctx.lineWidth = 4;
     ctx.beginPath();
     ctx.arc(0, 0, 75, 0, Math.PI * 2);
@@ -204,17 +217,17 @@ export default function PujoPassportPage() {
     ctx.stroke();
 
     ctx.textAlign = "center";
-    ctx.fillStyle = "rgba(181, 31, 42, 0.85)";
+    ctx.fillStyle = "rgba(255, 104, 89, 0.85)";
     ctx.font = "bold 16px sans-serif";
     ctx.fillText("KOLKATA G.P.O.", 0, -25);
     ctx.font = "900 22px sans-serif";
     ctx.fillText("OCT 2026", 0, 5);
     ctx.font = "bold 14px sans-serif";
-    ctx.fillText("★ VERIFIED ★", 0, 30);
+    ctx.fillText("VERIFIED", 0, 30);
     ctx.restore();
 
     // 7. Stats Overview Bar
-    ctx.fillStyle = "#241C1C";
+    ctx.fillStyle = "#141519";
     ctx.beginPath();
     ctx.roundRect(80, 500, 920, 120, 16);
     ctx.fill();
@@ -261,7 +274,7 @@ export default function PujoPassportPage() {
       const px = startX + col * (cardW + gap);
       const py = startY + row * (cardH + gap);
 
-      // Stamp Outer Background with Jagged Border imitation
+      // Stamp Outer Background
       ctx.save();
       ctx.fillStyle = "#FFFFFF";
       ctx.strokeStyle = "#EADFD5";
@@ -272,26 +285,25 @@ export default function PujoPassportPage() {
       ctx.stroke();
 
       // Top Stamp Accent
-      ctx.fillStyle = p.zone === "South" ? "#B51F2A" : p.zone === "North" ? "#D48806" : "#2B7A4B";
+      ctx.fillStyle = p.zone === "South" ? "#FF6859" : p.zone === "North" ? "#D48806" : "#2B7A4B";
       ctx.fillRect(px, py, cardW, 10);
 
       // Pandal Zone Pill
-      ctx.fillStyle = p.zone === "South" ? "#F7E3E1" : p.zone === "North" ? "#FFF6E5" : "#E8F5E9";
+      ctx.fillStyle = p.zone === "South" ? "#FFF2F0" : p.zone === "North" ? "#FFF6E5" : "#E8F5E9";
       ctx.beginPath();
       ctx.roundRect(px + 14, py + 22, 105, 26, 6);
       ctx.fill();
 
-      ctx.fillStyle = p.zone === "South" ? "#B51F2A" : p.zone === "North" ? "#945D04" : "#1B5E35";
+      ctx.fillStyle = p.zone === "South" ? "#FF6859" : p.zone === "North" ? "#945D04" : "#1B5E35";
       ctx.font = "bold 13px sans-serif";
       ctx.textAlign = "center";
       ctx.fillText(p.zone.toUpperCase(), px + 66, py + 40);
 
       // Pandal Name
       ctx.textAlign = "left";
-      ctx.fillStyle = "#241C1C";
+      ctx.fillStyle = "#141519";
       ctx.font = "bold 24px sans-serif";
 
-      // Wrap text if needed
       const words = p.name.split(" ");
       if (words.length > 2) {
         ctx.fillText(words.slice(0, 2).join(" "), px + 14, py + 80);
@@ -304,23 +316,23 @@ export default function PujoPassportPage() {
       ctx.font = "500 16px sans-serif";
       ctx.fillText(p.highlight, px + 14, py + 142, cardW - 28);
 
-      // Rubber Cancellation Mark across the stamp
-      ctx.strokeStyle = "rgba(181, 31, 42, 0.7)";
+      // Cancellation Mark
+      ctx.strokeStyle = "rgba(255, 104, 89, 0.7)";
       ctx.lineWidth = 2.5;
       ctx.beginPath();
       ctx.roundRect(px + 14, py + 160, 140, 32, 6);
       ctx.stroke();
 
-      ctx.fillStyle = "rgba(181, 31, 42, 0.85)";
+      ctx.fillStyle = "rgba(255, 104, 89, 0.85)";
       ctx.font = "900 16px sans-serif";
-      ctx.fillText("✓ HOPPED", px + 35, py + 182);
+      ctx.fillText("HOPPED", px + 35, py + 182);
 
       ctx.restore();
     }
 
     // 9. Bottom Official Authenticator Footer
     const footerY = 1680;
-    ctx.fillStyle = "#B51F2A";
+    ctx.fillStyle = "#141519";
     ctx.fillRect(80, footerY, 920, 160);
 
     ctx.textAlign = "center";
@@ -328,18 +340,18 @@ export default function PujoPassportPage() {
     ctx.font = "900 34px sans-serif";
     ctx.fillText("KOLKATA THIS WEEKEND", 540, footerY + 55);
 
-    ctx.fillStyle = "#FFE8E8";
+    ctx.fillStyle = "#FFA17E";
     ctx.font = "600 22px sans-serif";
     ctx.fillText("kolkatathisweekend.com/passport", 540, footerY + 95);
 
     ctx.font = "500 18px sans-serif";
-    ctx.fillStyle = "#FFC2C2";
-    ctx.fillText("Generate your own Pujo 2026 Passport & discover weekend plans", 540, footerY + 130);
+    ctx.fillStyle = "#C8BFBF";
+    ctx.fillText("Generate your own Pujo Passport & discover weekend plans", 540, footerY + 130);
 
     const dataUrl = canvas.toDataURL("image/png");
     setPreviewDataUrl(dataUrl);
     setIsGenerating(false);
-    showToast("Pujor Passport Generated! Ready to share 📸");
+    showToast("Pujor Passport Generated! Ready to share");
   };
 
   useEffect(() => {
@@ -379,43 +391,61 @@ export default function PujoPassportPage() {
   };
 
   return (
-    <main
-      className={`w-full max-w-[440px] min-h-screen mx-auto pb-44 relative font-sans transition-colors duration-300 overflow-x-hidden ${
-        isDarkMode ? "bg-[#090a0f] text-white" : "bg-[#fbfbfb] text-neutral-900"
-      }`}
-    >
-      <AppHeader title="Pujor Passport 2026" subtitle="Viral Instagram Story Generator" />
+    <main className="w-full max-w-[440px] mx-auto min-h-screen bg-[#ECEFED] text-[#141519] px-4 pb-36 pt-4 font-sans select-none overflow-x-hidden">
+      {/* Top Header */}
+      <header className="flex items-center justify-between py-2 mb-4">
+        <div className="flex items-center gap-3">
+          <Link
+            href="/"
+            className="w-10 h-10 rounded-full bg-white shadow-[0_2px_12px_rgba(0,0,0,0.06)] border border-neutral-100 flex items-center justify-center text-neutral-800 hover:scale-105 active:scale-95 transition-all"
+            aria-label="Back"
+          >
+            <ArrowLeft size={18} strokeWidth={2.2} />
+          </Link>
+          <div>
+            <h1 className="text-xl font-black tracking-tight text-[#141519] lowercase">
+              pujor passport
+            </h1>
+            <p className="text-xs font-semibold text-neutral-500">
+              official story card generator
+            </p>
+          </div>
+        </div>
 
-      <section className="px-5 py-4 space-y-4">
-        {/* Intro Banner */}
-        <div
-          className={`p-4 rounded-2xl border ${
-            isDarkMode ? "bg-[#141620] border-neutral-800" : "bg-white border-neutral-200"
-          }`}
+        <Link
+          href="/notifications"
+          className="relative w-10 h-10 rounded-full bg-white shadow-[0_2px_12px_rgba(0,0,0,0.06)] border border-neutral-100 flex items-center justify-center text-neutral-800 hover:scale-105 active:scale-95 transition-all"
+          aria-label="Notifications"
         >
-          <div className="flex items-center gap-2">
-            <span className="text-[10px] font-black uppercase tracking-wider bg-[#b51f2a] text-white px-2 py-0.5 rounded-full">
+          <Bell size={18} strokeWidth={2.2} />
+          <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-[#FF6859] text-white text-[9px] font-black flex items-center justify-center border-2 border-white">
+            2
+          </span>
+        </Link>
+      </header>
+
+      <section className="space-y-4">
+        {/* Intro Banner */}
+        <div className="bg-white rounded-[26px] p-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-neutral-100">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-[#FF6E5A] to-[#FFA17E] text-white px-2.5 py-0.5 rounded-full">
               Pujo Wrapped
             </span>
-            <span className="text-[11px] text-neutral-400 font-medium">9:16 Story Canvas</span>
+            <span className="text-xs text-neutral-500 font-semibold">9:16 Story Canvas</span>
           </div>
 
-          <h2 className="text-base font-extrabold mt-1.5 leading-tight">
+          <h2 className="text-base font-extrabold text-[#141519] leading-tight">
             How many pandals did you actually hit this year?
           </h2>
-          <p className="text-xs text-neutral-400 mt-1 leading-relaxed">
-            Select your pandals, rolls, and archetype. Generate an authentic vintage postal-stamped card to share on Instagram & WhatsApp!
+          <p className="text-xs text-neutral-500 mt-1 leading-relaxed">
+            Select your pandals, rolls, and archetype. Generate an authentic postal-stamped card to share on Instagram & WhatsApp.
           </p>
         </div>
 
         {/* Step 1: Name & Archetype */}
-        <div
-          className={`p-4 rounded-2xl border space-y-3 ${
-            isDarkMode ? "bg-[#12141c] border-neutral-800" : "bg-white border-neutral-200"
-          }`}
-        >
+        <div className="bg-white rounded-[26px] p-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-neutral-100 space-y-4">
           <div>
-            <label className="text-[11px] font-bold text-neutral-400 block mb-1 uppercase tracking-wider">
+            <label className="text-[11px] font-bold text-neutral-400 block mb-1.5 uppercase tracking-wider">
               Your Name / Nickname
             </label>
             <input
@@ -423,73 +453,77 @@ export default function PujoPassportPage() {
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
               placeholder="e.g. Abhirup"
-              className={`w-full px-3.5 py-2 rounded-xl border text-xs font-bold focus:outline-none ${
-                isDarkMode
-                  ? "bg-[#141620] border-neutral-700 text-white focus:border-[#b51f2a]"
-                  : "bg-white border-neutral-200 text-neutral-900"
-              }`}
+              className="w-full px-4 py-2.5 rounded-2xl bg-neutral-50 border border-neutral-200/80 text-xs font-bold text-[#141519] focus:outline-none focus:border-[#FF6859]"
             />
           </div>
 
           <div>
-            <label className="text-[11px] font-bold text-neutral-400 block mb-1.5 uppercase tracking-wider">
+            <label className="text-[11px] font-bold text-neutral-400 block mb-2 uppercase tracking-wider">
               Your Pujo Archetype
             </label>
-            <div className="space-y-1.5">
-              {ARCHETYPES.map((arch) => (
-                <button
-                  key={arch.id}
-                  onClick={() => setArchetype(arch.id)}
-                  className={`w-full text-left p-2.5 rounded-xl border transition-all flex items-center gap-2.5 ${
-                    archetype === arch.id
-                      ? "bg-[#b51f2a]/15 border-[#b51f2a] text-white"
-                      : isDarkMode
-                      ? "bg-[#141620] border-neutral-800 text-neutral-400"
-                      : "bg-neutral-50 border-neutral-200 text-neutral-700"
-                  }`}
-                >
-                  <span className="text-lg">{arch.icon}</span>
-                  <div className="flex-1">
-                    <span className="text-xs font-extrabold block">{arch.title}</span>
-                    <span className="text-[10px] text-neutral-500 block">{arch.tagline}</span>
-                  </div>
-                  {archetype === arch.id && <span className="text-red-500 text-xs font-black">✓</span>}
-                </button>
-              ))}
+            <div className="space-y-2">
+              {ARCHETYPES.map((arch) => {
+                const IconComp = arch.icon;
+                const isSelected = archetype === arch.id;
+                return (
+                  <button
+                    key={arch.id}
+                    onClick={() => setArchetype(arch.id)}
+                    className={`w-full text-left p-3 rounded-2xl border transition-all flex items-center gap-3 cursor-pointer ${
+                      isSelected
+                        ? "bg-[#FFF4F2] border-[#FF6859] shadow-xs"
+                        : "bg-neutral-50 border-neutral-200/60 hover:bg-neutral-100"
+                    }`}
+                  >
+                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
+                      isSelected ? "bg-[#FF6859] text-white" : "bg-white text-neutral-600 border border-neutral-200/60"
+                    }`}>
+                      <IconComp size={18} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <span className="text-xs font-extrabold text-[#141519] block truncate">
+                        {arch.title}
+                      </span>
+                      <span className="text-[10px] text-neutral-500 block truncate">
+                        {arch.tagline}
+                      </span>
+                    </div>
+                    {isSelected && <Check size={16} className="text-[#FF6859] shrink-0" />}
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>
 
         {/* Step 2: Pandals Checklist */}
-        <div
-          className={`p-4 rounded-2xl border ${
-            isDarkMode ? "bg-[#12141c] border-neutral-800" : "bg-white border-neutral-200"
-          }`}
-        >
-          <div className="flex items-center justify-between mb-2">
+        <div className="bg-white rounded-[26px] p-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-neutral-100">
+          <div className="flex items-center justify-between mb-3">
             <label className="text-[11px] font-bold text-neutral-400 uppercase tracking-wider">
               Pandals You Visited ({selectedPandals.length})
             </label>
-            <span className="text-[10px] text-neutral-500">Tap to toggle</span>
+            <span className="text-[10px] font-semibold text-neutral-500">Tap to toggle</span>
           </div>
 
-          <div className="grid grid-cols-2 gap-1.5 max-h-56 overflow-y-auto no-scrollbar pr-1">
+          <div className="grid grid-cols-2 gap-2 max-h-56 overflow-y-auto no-scrollbar pr-0.5">
             {PANDALS.map((pandal) => {
               const isChecked = selectedPandals.includes(pandal.id);
               return (
                 <button
                   key={pandal.id}
                   onClick={() => togglePandal(pandal.id)}
-                  className={`p-2 rounded-xl text-left border text-[11px] font-bold transition-all truncate flex items-center justify-between ${
+                  className={`p-2.5 rounded-xl text-left border text-[11px] font-bold transition-all truncate flex items-center justify-between cursor-pointer ${
                     isChecked
-                      ? "bg-[#b51f2a] text-white border-[#b51f2a]"
-                      : isDarkMode
-                      ? "bg-[#141620] border-neutral-800 text-neutral-400 hover:text-white"
-                      : "bg-neutral-100 border-neutral-200 text-neutral-700"
+                      ? "bg-[#141519] text-white border-[#141519]"
+                      : "bg-neutral-50 border-neutral-200/60 text-neutral-700 hover:bg-neutral-100"
                   }`}
                 >
                   <span className="truncate">{pandal.name}</span>
-                  <span className="text-[10px] shrink-0 ml-1">{isChecked ? "✓" : "+"}</span>
+                  {isChecked ? (
+                    <Check size={12} className="shrink-0 ml-1 text-white" />
+                  ) : (
+                    <Plus size={12} className="shrink-0 ml-1 text-neutral-400" />
+                  )}
                 </button>
               );
             })}
@@ -497,48 +531,47 @@ export default function PujoPassportPage() {
         </div>
 
         {/* Step 3: Food & Steps Stats */}
-        <div
-          className={`p-4 rounded-2xl border space-y-3 ${
-            isDarkMode ? "bg-[#12141c] border-neutral-800" : "bg-white border-neutral-200"
-          }`}
-        >
+        <div className="bg-white rounded-[26px] p-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-neutral-100 space-y-4">
           <div className="grid grid-cols-3 gap-2">
             <div>
-              <label className="text-[10px] font-bold text-neutral-400 block mb-1">🌯 Rolls</label>
+              <label className="text-[10px] font-bold text-neutral-400 flex items-center gap-1 mb-1">
+                <Utensils size={11} className="text-[#FF6859]" />
+                <span>Rolls</span>
+              </label>
               <input
                 type="number"
                 min={0}
                 max={20}
                 value={rollsCount}
                 onChange={(e) => setRollsCount(Number(e.target.value))}
-                className={`w-full px-2.5 py-1.5 rounded-lg border text-xs font-bold text-center ${
-                  isDarkMode ? "bg-[#141620] border-neutral-700" : "bg-neutral-100 border-neutral-200"
-                }`}
+                className="w-full px-2.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200/80 text-xs font-bold text-center text-[#141519] focus:outline-none"
               />
             </div>
             <div>
-              <label className="text-[10px] font-bold text-neutral-400 block mb-1">🥔 Phuchkas</label>
+              <label className="text-[10px] font-bold text-neutral-400 flex items-center gap-1 mb-1">
+                <Sparkles size={11} className="text-amber-500" />
+                <span>Phuchkas</span>
+              </label>
               <input
                 type="number"
                 min={0}
                 max={100}
                 value={phuchkaCount}
                 onChange={(e) => setPhuchkaCount(Number(e.target.value))}
-                className={`w-full px-2.5 py-1.5 rounded-lg border text-xs font-bold text-center ${
-                  isDarkMode ? "bg-[#141620] border-neutral-700" : "bg-neutral-100 border-neutral-200"
-                }`}
+                className="w-full px-2.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200/80 text-xs font-bold text-center text-[#141519] focus:outline-none"
               />
             </div>
             <div>
-              <label className="text-[10px] font-bold text-neutral-400 block mb-1">🚶 Est. Steps</label>
+              <label className="text-[10px] font-bold text-neutral-400 flex items-center gap-1 mb-1">
+                <Footprints size={11} className="text-emerald-500" />
+                <span>Est. Steps</span>
+              </label>
               <input
                 type="number"
                 step={1000}
                 value={estimatedSteps}
                 onChange={(e) => setEstimatedSteps(Number(e.target.value))}
-                className={`w-full px-2.5 py-1.5 rounded-lg border text-xs font-bold text-center ${
-                  isDarkMode ? "bg-[#141620] border-neutral-700" : "bg-neutral-100 border-neutral-200"
-                }`}
+                className="w-full px-2.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200/80 text-xs font-bold text-center text-[#141519] focus:outline-none"
               />
             </div>
           </div>
@@ -546,21 +579,25 @@ export default function PujoPassportPage() {
           <button
             onClick={generatePassportCard}
             disabled={isGenerating}
-            className="w-full bg-[#b51f2a] hover:bg-[#961720] text-white font-extrabold text-xs py-3 rounded-xl transition-transform active:scale-98 shadow-sm flex items-center justify-center gap-2"
+            className="w-full bg-[#141519] hover:bg-neutral-800 text-white font-extrabold text-xs py-3 rounded-2xl transition-transform active:scale-98 shadow-sm flex items-center justify-center gap-2 cursor-pointer"
           >
-            <span>{isGenerating ? "⏳ Rendering Passport..." : "🎨 Update & Render Passport"}</span>
+            <Sparkles size={15} />
+            <span>{isGenerating ? "Rendering Passport..." : "Update & Render Passport"}</span>
           </button>
         </div>
 
         {/* Live Card Preview */}
         {previewDataUrl && (
           <div className="space-y-3 pt-2">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-extrabold text-emerald-400">✨ 9:16 Instagram Story Preview</span>
-              <span className="text-[10px] text-neutral-500">1080 × 1920 HD</span>
+            <div className="flex items-center justify-between px-1">
+              <span className="text-xs font-extrabold text-[#141519] flex items-center gap-1.5">
+                <Sparkles size={14} className="text-[#FF6859]" />
+                <span>9:16 Instagram Story Preview</span>
+              </span>
+              <span className="text-[10px] font-bold text-neutral-500">1080 × 1920 HD</span>
             </div>
 
-            <div className="relative w-full aspect-[9/16] rounded-2xl overflow-hidden shadow-2xl border border-neutral-800 bg-neutral-950">
+            <div className="relative w-full aspect-[9/16] rounded-[26px] overflow-hidden shadow-2xl border border-neutral-200 bg-neutral-900">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={previewDataUrl}
@@ -570,42 +607,48 @@ export default function PujoPassportPage() {
             </div>
 
             {/* Action Buttons */}
-            <div className="grid grid-cols-2 gap-2 pt-1">
+            <div className="grid grid-cols-2 gap-3 pt-1">
               <button
                 onClick={handleDownload}
-                className="bg-neutral-800 hover:bg-neutral-700 text-white font-bold text-xs py-3 rounded-xl transition-colors flex items-center justify-center gap-1.5"
+                className="bg-white hover:bg-neutral-50 border border-neutral-200 text-[#141519] font-bold text-xs py-3 rounded-2xl transition-colors flex items-center justify-center gap-1.5 shadow-xs cursor-pointer"
               >
-                <span>📥</span> Save Image
+                <Download size={15} />
+                <span>Save Image</span>
               </button>
               <button
                 onClick={handleShareStory}
-                className="bg-[#E1306C] hover:bg-[#C13584] text-white font-black text-xs py-3 rounded-xl transition-transform active:scale-98 flex items-center justify-center gap-1.5 shadow-md shadow-pink-950/40"
+                className="bg-gradient-to-r from-[#FF6E5A] to-[#FFA17E] text-white font-black text-xs py-3 rounded-2xl transition-transform active:scale-98 flex items-center justify-center gap-1.5 shadow-md shadow-red-200 cursor-pointer"
               >
-                <span>📸</span> Share Story ↗
+                <Share2 size={15} />
+                <span>Share Story</span>
               </button>
             </div>
           </div>
         )}
 
         {/* Bridge to Weekend Engine */}
-        <div
-          className={`p-4 rounded-2xl border text-center ${
-            isDarkMode ? "bg-[#141620] border-neutral-800" : "bg-neutral-50 border-neutral-200"
-          }`}
-        >
-          <span className="text-xl block mb-1">🎉</span>
-          <h4 className="text-xs font-extrabold text-white">Pujo is done, but the weekend isn&apos;t!</h4>
-          <p className="text-[11px] text-neutral-400 mt-1">
+        <div className="bg-white rounded-[26px] p-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-neutral-100 text-center">
+          <div className="w-10 h-10 rounded-full bg-[#FFF4F2] text-[#FF6859] flex items-center justify-center mx-auto mb-2">
+            <Sparkles size={20} />
+          </div>
+          <h4 className="text-sm font-extrabold text-[#141519]">
+            Pujo is done, but the weekend isn&apos;t!
+          </h4>
+          <p className="text-xs text-neutral-500 mt-1 leading-relaxed">
             Discover upcoming live gigs, artisan cafes & weekend circuits across Kolkata.
           </p>
           <Link
             href="/events"
-            className="mt-3 inline-block bg-[#b51f2a] text-white text-xs font-bold py-2 px-4 rounded-xl hover:bg-[#961720] transition-colors"
+            className="mt-3.5 inline-flex items-center gap-1.5 bg-[#141519] text-white text-xs font-bold py-2.5 px-4 rounded-xl hover:bg-neutral-800 transition-colors"
           >
-            Explore What&apos;s Happening This Weekend ➔
+            <span>Explore Events</span>
+            <ArrowRight size={14} />
           </Link>
         </div>
       </section>
+
+      {/* Floating Bottom Navigation */}
+      <BottomNavbar />
     </main>
   );
 }

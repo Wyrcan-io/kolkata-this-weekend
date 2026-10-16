@@ -59,7 +59,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [polls, setPolls] = useState<Record<string, WhatsAppPoll>>({
     "sat-crew-plan": {
       id: "sat-crew-plan",
-      title: "Saturday Evening Plan! 🍻",
+      title: "Saturday Evening Plan",
       targetDate: "This Saturday (Oct 18)",
       createdBy: "Abhirup",
       totalVotes: 3,
@@ -138,7 +138,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       try {
         localStorage.setItem("ktw_saved_events", JSON.stringify(updated));
       } catch {}
-      showToast(exists ? "Removed from Shortlist" : "Saved to Weekend Shortlist! ❤️");
+      showToast(exists ? "Removed from Shortlist" : "Saved to Weekend Shortlist");
       return updated;
     });
   };
@@ -173,7 +173,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       summary: `Submitted by community organizer for ${target.neighborhood}.`,
       category: target.category,
       categoryLabel: target.category.toUpperCase(),
-      categoryIcon: target.category === "music" ? "🎵" : target.category === "workshops" ? "🎨" : "🎭",
+      categoryIcon: target.category,
       vibe: "Community Verified",
       zone: target.zone,
       neighborhood: target.neighborhood,
@@ -221,7 +221,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     
     const newPoll: WhatsAppPoll = {
       id: pollId,
-      title: title || "Weekend Plan with Friends! 🎉",
+      title: title || "Weekend Plan with Friends",
       targetDate: targetDate || "This Weekend",
       createdBy: "You",
       totalVotes: 0,
@@ -241,7 +241,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     try {
       localStorage.setItem("ktw_polls", JSON.stringify(updatedPolls));
     } catch {}
-    showToast("WhatsApp Group Poll Created! 🎉");
+    showToast("WhatsApp Group Poll Created");
     return pollId;
   };
 
@@ -264,7 +264,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     try {
       localStorage.setItem("ktw_polls", JSON.stringify(updatedPolls));
     } catch {}
-    showToast("Vote recorded! 🗳️");
+    showToast("Vote recorded");
   };
 
   return (
@@ -289,16 +289,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         votePoll,
       }}
     >
-      <div
-        className={`min-h-screen transition-colors duration-300 relative ${
-          isDarkMode ? "dark bg-[#090a0f]" : "bg-[#fbfbfb]"
-        }`}
-      >
+      <div className="min-h-screen relative bg-transparent">
         {/* Floating Toast Alert */}
         {toastMessage && (
           <div className="fixed top-5 left-1/2 -translate-x-1/2 z-50 animate-bounce">
-            <div className="bg-[#b51f2a] text-white px-4 py-2.5 rounded-full shadow-2xl text-xs font-bold flex items-center gap-2 border border-red-400/30">
-              <span>✨</span>
+            <div className="bg-[#181a1e] text-white px-4 py-2 rounded-full shadow-2xl text-xs font-semibold flex items-center gap-2 border border-white/15">
+              <span className="w-2 h-2 rounded-full bg-[#ff7657]" />
               <span>{toastMessage}</span>
             </div>
           </div>

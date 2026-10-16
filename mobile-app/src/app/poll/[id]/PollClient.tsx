@@ -1,17 +1,31 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
 import AppHeader from "../../components/AppHeader";
 import { useApp } from "../../context";
+import {
+  MessageSquare,
+  Play,
+  Pause,
+  CheckCircle2,
+  Share2,
+  Users,
+  Music,
+  Palette,
+  Clock,
+  MapPin,
+  Calendar,
+} from "lucide-react";
 
 export default function PollClient({ pollId }: { pollId: string }) {
-  const { isDarkMode, polls, votePoll } = useApp();
+  const { polls, votePoll, showToast } = useApp();
   const [hasVoted, setHasVoted] = useState<string | null>(null);
+  const [isPlayingAudio, setIsPlayingAudio] = useState(false);
+  const [audioProgress, setAudioProgress] = useState(40);
 
   const poll = polls[pollId] || {
     id: pollId,
-    title: "Saturday Evening Plan! 🍻",
+    title: "Saturday Evening Plan",
     targetDate: "This Saturday (Oct 18)",
     createdBy: "The Crew",
     totalVotes: 4,
@@ -42,128 +56,172 @@ export default function PollClient({ pollId }: { pollId: string }) {
     if (hasVoted) return;
     votePoll(pollId, optionId);
     setHasVoted(optionId);
+    showToast("Vote recorded for the crew!");
   };
 
   const handleShareWhatsApp = () => {
     const pollUrl = typeof window !== "undefined" ? window.location.href : "";
     const text = encodeURIComponent(
-      `🗳️ *Vote on our plan for ${poll.targetDate}!* \n${poll.title}\n\n👉 Cast your vote here:\n${pollUrl}`
+      `*Vote on our plan for ${poll.targetDate}!* \n${poll.title}\n\nCast your vote here:\n${pollUrl}`
     );
     window.open(`https://wa.me/?text=${text}`, "_blank");
   };
 
+  const soundwaveBars = [6, 14, 20, 10, 26, 32, 18, 14, 28, 22, 12, 24, 30, 26, 16, 20, 14, 10];
+
   return (
-    <main
-      className={`w-full max-w-[440px] min-h-screen mx-auto pb-44 relative font-sans transition-colors duration-300 overflow-x-hidden ${
-        isDarkMode ? "bg-[#090a0f] text-white" : "bg-[#fbfbfb] text-neutral-900"
-      }`}
-    >
-      <AppHeader title="Kothay Jabi? Poll" subtitle="1-Tap Group Consensus" />
+    <div className="w-full min-h-screen bg-[#ecefed] text-[#1a1d20] flex flex-col font-sans select-none overflow-x-hidden">
+      <main className="w-full max-w-[440px] mx-auto min-h-screen flex flex-col justify-start relative px-4 sm:px-5 pb-36">
+        <AppHeader
+          title="kothay jabi? poll"
+          subtitle="crew consensus"
+          showBackButton={true}
+        />
 
-      <section className="px-5 py-4 space-y-4">
-        {/* Poll Meta Header */}
-        <div
-          className={`p-4 rounded-2xl border text-center relative overflow-hidden ${
-            isDarkMode
-              ? "bg-[#141620] border-neutral-800 text-white"
-              : "bg-white border-neutral-200/90 text-neutral-900 shadow-xs"
-          }`}
-        >
-          <span className="text-[10px] font-black uppercase tracking-wider bg-[#b51f2a] text-white px-2.5 py-0.5 rounded-full inline-block">
-            Group Decision Engine
-          </span>
-          <h2 className="text-lg font-black mt-2 leading-tight">{poll.title}</h2>
-          <p className="text-xs text-neutral-400 mt-1">
-            Target: <strong className="text-red-400">{poll.targetDate}</strong> • Total votes:{" "}
-            <strong>{poll.totalVotes}</strong>
-          </p>
-
-          <p className="text-[11px] text-neutral-400 mt-2 bg-neutral-900/60 py-1 px-3 rounded-lg border border-neutral-800">
-            {hasVoted ? "✅ Thanks for voting! Results updated below." : "👉 Tap any card below to cast your vote:"}
-          </p>
-        </div>
-
-        {/* Voting Options */}
-        <div className="space-y-3">
-          {poll.options.map((opt) => {
-            const percentage = Math.round((opt.votes / totalVotes) * 100);
-            const isMyVote = hasVoted === opt.id;
-
-            return (
-              <div
-                key={opt.id}
-                onClick={() => handleVote(opt.id)}
-                className={`p-4 rounded-2xl border relative overflow-hidden cursor-pointer transition-all active:scale-98 ${
-                  isMyVote
-                    ? "border-[#b51f2a] ring-2 ring-red-500/40 bg-[#1a1215]"
-                    : isDarkMode
-                    ? "bg-[#12141c] border-neutral-800 hover:border-neutral-700"
-                    : "bg-white border-neutral-200 hover:border-neutral-300 shadow-xs"
-                }`}
-              >
-                {/* Visual Percentage Bar */}
-                <div
-                  className="absolute left-0 top-0 bottom-0 bg-[#b51f2a]/15 transition-all duration-700"
-                  style={{ width: `${percentage}%` }}
-                />
-
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-bold uppercase tracking-wider bg-neutral-800 text-neutral-300 px-2 py-0.5 rounded-md">
-                      {opt.category}
-                    </span>
-                    <span className="text-xs font-black text-red-500">
-                      {opt.votes} votes ({percentage}%)
-                    </span>
-                  </div>
-
-                  <h3 className="text-sm font-extrabold mt-1.5 leading-snug">{opt.title}</h3>
-
-                  <div className="mt-2 flex items-center justify-between text-xs text-neutral-400">
-                    <span className="truncate">📍 {opt.venue}</span>
-                    <span className="font-semibold text-neutral-300 shrink-0">🕒 {opt.timeStr}</span>
-                  </div>
-
-                  <div className="mt-3 flex items-center justify-between pt-2 border-t border-neutral-800/40">
-                    <span
-                      className={`text-xs font-bold ${
-                        isMyVote ? "text-emerald-400" : "text-neutral-400"
-                      }`}
-                    >
-                      {isMyVote ? "✓ Your Vote" : "Tap to Vote"}
-                    </span>
-                    <span className="text-[11px] text-red-500 font-bold">Vote 🗳️</span>
-                  </div>
-                </div>
+        {/* Chat Bubble / Poll Card styled like Dribbble Left Phone */}
+        <div className="bg-[#181a1e] text-white rounded-[28px] p-5 border border-white/10 shadow-lg mt-3">
+          {/* Header */}
+          <div className="flex items-center justify-between pb-3 border-b border-white/10">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-[#ff8f7d]">
+                <MessageSquare className="w-4 h-4" />
               </div>
-            );
-          })}
-        </div>
+              <div>
+                <span className="text-[9.5px] font-extrabold uppercase tracking-wider text-[#ff6859]">
+                  Kolkata Crew Poll
+                </span>
+                <h2 className="text-[15.5px] font-bold text-white tracking-tight leading-tight">
+                  {poll.title}
+                </h2>
+              </div>
+            </div>
+            <span className="w-2 h-2 rounded-full bg-[#22c55e] animate-pulse" />
+          </div>
 
-        {/* WhatsApp Forward Button */}
-        <button
-          onClick={handleShareWhatsApp}
-          className="w-full bg-[#25D366] hover:bg-[#1EBE5D] text-black font-extrabold text-xs py-3 rounded-2xl flex items-center justify-center gap-2 transition-transform active:scale-98 shadow-sm"
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 6.46 17.5 2 12.04 2Z" />
-          </svg>
-          <span>Share Poll in Friends WhatsApp Group ↗</span>
-        </button>
+          {/* Meta Info */}
+          <div className="flex items-center justify-between py-2 text-[11px] text-neutral-400">
+            <span className="flex items-center gap-1">
+              <Calendar className="w-3.5 h-3.5 text-[#ff6859]" />
+              <span>{poll.targetDate}</span>
+            </span>
+            <span className="flex items-center gap-1 font-semibold text-white">
+              <Users className="w-3.5 h-3.5 text-neutral-400" />
+              <span>{poll.totalVotes} votes cast</span>
+            </span>
+          </div>
 
-        {/* Brand Discovery Footer */}
-        <div className="text-center pt-4">
-          <p className="text-xs text-neutral-500">
-            Powered by <strong>Kolkata This Weekend</strong>
+          {/* Playable Venue Sound Preview */}
+          <div className="bg-[#24282f] border border-white/5 rounded-full px-3.5 py-1.5 flex items-center justify-between gap-3 shadow-inner my-2">
+            <button
+              onClick={() => setIsPlayingAudio(!isPlayingAudio)}
+              className="w-7 h-7 rounded-full bg-white text-black flex items-center justify-center hover:bg-neutral-200 transition cursor-pointer flex-shrink-0"
+              title={isPlayingAudio ? "Pause Preview" : "Play Venue Sax Preview"}
+            >
+              {isPlayingAudio ? (
+                <Pause className="w-3.5 h-3.5 fill-black text-black" />
+              ) : (
+                <Play className="w-3.5 h-3.5 fill-black text-black ml-0.5" />
+              )}
+            </button>
+
+            {/* Soundwave Bars */}
+            <div className="flex items-center gap-[2.5px] h-5 px-1 flex-1">
+              {soundwaveBars.map((h, i) => (
+                <span
+                  key={i}
+                  style={{ height: `${h * 0.75}px` }}
+                  className={`w-[2px] rounded-full transition-all ${
+                    (i / soundwaveBars.length) * 100 <= audioProgress ? "bg-[#ff7657]" : "bg-white/20"
+                  } ${isPlayingAudio ? "animate-waveform-1" : ""}`}
+                />
+              ))}
+            </div>
+
+            <span className="text-[10px] text-neutral-400 font-mono">0:45</span>
+          </div>
+
+          {/* Helper Message */}
+          <p className="text-[11px] text-neutral-400 py-1 font-medium">
+            {hasVoted ? "Thanks for voting! Live crew percentages updated below:" : "Tap any card below to cast your vote:"}
           </p>
-          <Link
-            href="/events"
-            className="mt-1 text-xs font-bold text-[#b51f2a] hover:underline inline-block"
+
+          {/* Voting Options */}
+          <div className="space-y-2.5 mt-2">
+            {poll.options.map((opt, idx) => {
+              const percentage = Math.round((opt.votes / totalVotes) * 100);
+              const isMyVote = hasVoted === opt.id;
+              const Icon = idx === 0 ? Music : Palette;
+
+              return (
+                <div
+                  key={opt.id}
+                  onClick={() => handleVote(opt.id)}
+                  className={`p-3.5 rounded-[22px] border relative overflow-hidden cursor-pointer transition-all active:scale-[0.99] ${
+                    isMyVote
+                      ? "bg-[#ff6859]/20 border-[#ff6859]"
+                      : "bg-white/5 hover:bg-white/10 border-white/5"
+                  }`}
+                >
+                  {/* Progress bar background fill */}
+                  <div
+                    style={{ width: `${percentage}%` }}
+                    className="absolute inset-y-0 left-0 bg-white/5 rounded-[22px] pointer-events-none transition-all duration-500"
+                  />
+
+                  <div className="relative z-10 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center ${isMyVote ? "bg-[#ff6859] text-white" : "bg-white/10 text-white"}`}>
+                        <Icon className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <h4 className="text-[13px] font-bold text-white leading-tight">
+                          {opt.title}
+                        </h4>
+                        <div className="flex items-center gap-2 text-[10.5px] text-neutral-400 mt-0.5">
+                          <span className="flex items-center gap-1">
+                            <MapPin className="w-3 h-3 text-[#ff8f7d]" />
+                            <span>{opt.venue}</span>
+                          </span>
+                          <span>•</span>
+                          <span className="flex items-center gap-1">
+                            <Clock className="w-3 h-3 text-neutral-400" />
+                            <span>{opt.timeStr}</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="text-right flex-shrink-0 ml-2">
+                      <span className="text-[14px] font-extrabold text-[#ff8f7d] block leading-none">
+                        {percentage}%
+                      </span>
+                      <span className="text-[10px] text-neutral-400 font-semibold">
+                        {opt.votes} votes
+                      </span>
+                    </div>
+                  </div>
+
+                  {isMyVote && (
+                    <div className="relative z-10 mt-2 flex items-center gap-1 text-[10.5px] font-bold text-[#ff8f7d]">
+                      <CheckCircle2 className="w-3.5 h-3.5" />
+                      <span>Your vote cast</span>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Share to WhatsApp Button */}
+          <button
+            onClick={handleShareWhatsApp}
+            className="w-full mt-4 py-3 rounded-full bg-gradient-to-r from-[#ff6e5a] to-[#ffa17e] text-white font-bold text-[12.5px] flex items-center justify-center gap-2 shadow-md hover:brightness-110 active:scale-95 transition cursor-pointer"
           >
-            Explore all weekend events in Kolkata ➔
-          </Link>
+            <Share2 className="w-4 h-4" />
+            <span>Share Poll to WhatsApp Group</span>
+          </button>
         </div>
-      </section>
-    </main>
+      </main>
+    </div>
   );
 }
