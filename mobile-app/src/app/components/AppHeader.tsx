@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { ArrowLeft, MapPin, Bell } from "lucide-react";
@@ -68,17 +69,28 @@ export default function AppHeader({
           </Link>
         )}
 
-        {/* Center / Page Title */}
+        {/* Center / Page Title with Brand Logo */}
         {!isHome && (
-          <div className="flex flex-col min-w-0 ml-1">
-            <h1 className="text-[16px] font-bold text-[#1a1d20] tracking-tight leading-tight truncate lowercase">
-              {title || "kolkata this weekend"}
-            </h1>
-            {subtitle && (
-              <span className="text-[10.5px] text-[#717882] font-semibold truncate leading-tight">
-                {subtitle}
-              </span>
-            )}
+          <div className="flex items-center gap-2 min-w-0 ml-1">
+            <div className="relative w-7 h-7 rounded-lg overflow-hidden border border-black/5 shadow-xs shrink-0">
+              <Image
+                src="/images/kolkata-logo.png"
+                alt="Kolkata This Weekend"
+                fill
+                sizes="28px"
+                className="object-cover"
+              />
+            </div>
+            <div className="flex flex-col min-w-0">
+              <h1 className="text-[15.5px] font-black text-[#1a1d20] tracking-tight leading-tight truncate lowercase">
+                {title || "kolkata this weekend"}
+              </h1>
+              {subtitle && (
+                <span className="text-[10px] text-[#717882] font-semibold truncate leading-tight">
+                  {subtitle}
+                </span>
+              )}
+            </div>
           </div>
         )}
       </div>

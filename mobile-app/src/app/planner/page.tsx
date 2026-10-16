@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -193,7 +194,22 @@ export default function PlannerPage() {
         {isGenerated && activeCircuit && (
           <div className="space-y-4">
             {/* Circuit Header */}
-            <div className="bg-white rounded-[26px] p-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-neutral-100">
+            <div className="bg-white rounded-[26px] p-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-neutral-100 overflow-hidden">
+              <div className="relative w-full h-28 rounded-2xl overflow-hidden mb-3.5">
+                <Image
+                  src="/images/real/real-kolkata-tram.jpg"
+                  alt="Kolkata Circuit"
+                  fill
+                  sizes="400px"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-3 text-white">
+                  <span className="text-xs font-black tracking-wide">
+                    {activeCircuit.zone} • {day} Connected Trail
+                  </span>
+                </div>
+              </div>
+
               <div className="flex items-center justify-between mb-1">
                 <span className="text-[10px] font-bold uppercase text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">
                   Verified Route

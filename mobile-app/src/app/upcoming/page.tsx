@@ -27,7 +27,7 @@ const UPCOMING_EVENTS: UpcomingEvent[] = [
     category: "Heritage Carnival",
     venue: "Barasat & Naihati Central Corridors",
     desc: "Renowned for the grandest illuminated laser pandals in Eastern India with Chandannagar lighting displays.",
-    imageSrc: "/images/dandiya.jpg",
+    imageSrc: "/images/real/real-festival-lights.jpg",
     expectedTurnout: "500K+ visitors",
   },
   {
@@ -38,7 +38,7 @@ const UPCOMING_EVENTS: UpcomingEvent[] = [
     category: "Film Fest",
     venue: "Nandan, Rabindra Sadan & Sisir Mancha",
     desc: "Over 180 curated world cinema masterpieces, retrospectives, and director Q&A sessions across heritage auditoriums.",
-    imageSrc: "/images/aot.jpg",
+    imageSrc: "/images/real/real-cinema-nandan.jpg",
     expectedTurnout: "Delegate Passes Live Soon",
   },
   {
@@ -49,7 +49,7 @@ const UPCOMING_EVENTS: UpcomingEvent[] = [
     category: "Mega Concert",
     venue: "Aquatica / Eco Park Open Grounds",
     desc: "The monumental open-air winter concert with a 40-piece live acoustic symphony orchestra.",
-    imageSrc: "/images/musicfest.jpg",
+    imageSrc: "/images/real/real-nicco-park-carnival.jpg",
     expectedTurnout: "Phase 1 Early Bird",
   },
   {
@@ -60,7 +60,7 @@ const UPCOMING_EVENTS: UpcomingEvent[] = [
     category: "Cultural Festival",
     venue: "Allen Park & Entire Park Street Corridor",
     desc: "Kolkata's legendary neon fairy-light boulevard, live street food stalls, choir carols, and brass bands.",
-    imageSrc: "/images/concert_summer.jpg",
+    imageSrc: "/images/real/real-park-street-lights.jpg",
     expectedTurnout: "Free Open Boulevard",
   },
   {
@@ -71,7 +71,7 @@ const UPCOMING_EVENTS: UpcomingEvent[] = [
     category: "Cultural Festival",
     venue: "Boimela Prangan, Central Park Salt Lake",
     desc: "The world's largest non-trade book fair with over 1,000 publishers, literary debates, and evening tea addas.",
-    imageSrc: "/images/pujor-passport.png",
+    imageSrc: "/images/real/real-college-street-books.jpg",
     expectedTurnout: "2.8 Million attendees",
   },
 ];

@@ -62,12 +62,12 @@ const COLLECTIONS: CollectionSection[] = [
       {
         title: "Kolkata Music Festival 2026",
         subtitle: "Nicco Park Live Concert",
-        imageSrc: "/images/musicfest.jpg",
+        imageSrc: "/images/real/real-nicco-park-carnival.jpg",
       },
       {
         title: "Taaza Dandiya Raas Night",
         subtitle: "Biswa Bangla Mela Prangan",
-        imageSrc: "/images/dandiya.jpg",
+        imageSrc: "/images/real/real-dandiya-celebration.jpg",
       },
       {
         title: "Pujor Passport Pandal Pass",
@@ -77,7 +77,7 @@ const COLLECTIONS: CollectionSection[] = [
       {
         title: "Durgotsav at Orkos Live",
         subtitle: "City Centre 1 Salt Lake",
-        imageSrc: "/images/durgotsav-orkos.png",
+        imageSrc: "/images/real/real-festival-lights.jpg",
       },
     ],
   },

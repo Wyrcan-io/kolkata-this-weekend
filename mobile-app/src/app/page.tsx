@@ -25,7 +25,7 @@ import {
   Radio,
 } from "lucide-react";
 
-// Curated Hero Spotlight Cards matching Dribbble Deck Aesthetic
+// Curated Hero Spotlight Cards matching Dribbble Deck Aesthetic with Real Photography
 const SPOTLIGHT_HEROES = [
   {
     id: "skinny-mos-jazz",
@@ -34,7 +34,7 @@ const SPOTLIGHT_HEROES = [
     neighborhood: "Southern Avenue",
     category: "Live Music",
     price: "₹499 (Drink incl.)",
-    image: "/images/friendly/hero-chasing-sunsets.jpg",
+    image: "/images/real/real-jazz-rooftop.jpg",
     tags: ["CraftBeer", "Rooftop", "BebopJazz", "Cocktails"],
     time: "Saturday 7:30 PM",
     attendees: 38,
@@ -47,7 +47,7 @@ const SPOTLIGHT_HEROES = [
     neighborhood: "EM Bypass",
     category: "Headliner Gig",
     price: "₹499+ entry",
-    image: "/images/dandiya.jpg",
+    image: "/images/real/real-dandiya-celebration.jpg",
     tags: ["LiveFolk", "CelebrityDJs", "StreetFood", "Trending"],
     time: "Tonight 7:00 PM",
     attendees: 120,
@@ -60,11 +60,24 @@ const SPOTLIGHT_HEROES = [
     neighborhood: "Hindustan Park",
     category: "Workshop",
     price: "₹850 (All clay incl.)",
-    image: "/images/friendly/chat-friends-drinks.jpg",
+    image: "/images/real/real-pottery-studio.jpg",
     tags: ["Pottery", "PourOverCoffee", "Courtyard", "PetFriendly"],
     time: "Saturday 3:30 PM",
     attendees: 16,
     outboundUrl: "https://forms.google.com/sample-sienna",
+  },
+  {
+    id: "princep-sunset",
+    title: "Golden hour wooden boat row & river breeze",
+    venue: "Princep Ghat Riverfront",
+    neighborhood: "Strand Road",
+    category: "Open Air",
+    price: "Free Entry (₹300 Boat)",
+    image: "/images/real/real-princep-ghat.jpg",
+    tags: ["SunsetGhat", "EarthenChai", "HeritageArches", "RiverHooghly"],
+    time: "Sunday 5:00 PM",
+    attendees: 52,
+    outboundUrl: "https://maps.google.com/?q=Princep+Ghat+Kolkata",
   },
   {
     id: "csm-imax",
@@ -86,7 +99,7 @@ const SPOTLIGHT_HEROES = [
     neighborhood: "College Street",
     category: "Heritage Walk",
     price: "Free Entry",
-    image: "/images/friendly/chat-friends-sun.jpg",
+    image: "/images/real/real-kolkata-tram.jpg",
     tags: ["35mmFilm", "StreetChai", "OldKolkata", "TramRide"],
     time: "Sunday 7:00 AM",
     attendees: 29,
@@ -178,10 +191,21 @@ export default function MobileAppHomePage() {
             </div>
           </Link>
 
-          {/* Clean lowercase wordmark matching Dribbble reference */}
-          <h1 className="text-[18px] font-bold tracking-tight text-[#1a1d20] lowercase flex-shrink-0">
-            kolkata this weekend
-          </h1>
+          {/* Brand Logo & Wordmark */}
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <div className="relative w-7 h-7 rounded-lg overflow-hidden border border-black/5 shadow-xs">
+              <Image
+                src="/images/kolkata-logo.png"
+                alt="Kolkata This Weekend"
+                fill
+                sizes="28px"
+                className="object-cover"
+              />
+            </div>
+            <h1 className="text-[17px] font-black tracking-tight text-[#1a1d20] lowercase">
+              kolkata this weekend
+            </h1>
+          </div>
 
           {/* Notification Bell with Badge 2 */}
           <Link
@@ -199,9 +223,9 @@ export default function MobileAppHomePage() {
 
         {/* CURATION & ATTENDEE STRIP */}
         <section className="flex items-center justify-between py-2.5">
-          {/* Avatar Stack of Crew Members */}
+          {/* Avatar Stack of Real Crew Members */}
           <div className="flex items-center -space-x-2">
-            {["/images/friendly/room-user-amber.jpg", "/images/friendly/room-user-yellow.jpg", "/images/friendly/room-user-blonde.jpg"].map((src, i) => (
+            {["/images/real/avatar-sneha.jpg", "/images/real/avatar-rohan.jpg", "/images/real/avatar-dev.jpg"].map((src, i) => (
               <div
                 key={i}
                 className="relative w-7 h-7 rounded-full overflow-hidden border-[2px] border-[#ecefed] shadow-xs"
@@ -372,7 +396,7 @@ export default function MobileAppHomePage() {
             title="Tap to skip to next drop"
           >
             <div className="flex items-center -space-x-2">
-              {["/images/friendly/room-user-locs.jpg", "/images/friendly/room-user-wavy.jpg", "/images/friendly/room-user-curls.jpg"].map((src, i) => (
+              {["/images/real/avatar-rohan.jpg", "/images/real/avatar-ananya.jpg", "/images/real/avatar-dev.jpg"].map((src, i) => (
                 <div
                   key={i}
                   className="relative w-6 h-6 rounded-full overflow-hidden border-[2px] border-white shadow-xs"
@@ -600,7 +624,7 @@ export default function MobileAppHomePage() {
             >
               <div className="relative w-[150px] h-[210px] rounded-[22px] overflow-hidden shadow-md border border-black/5 group-hover:scale-102 transition-transform">
                 <Image
-                  src="/images/durgapuja-river-full.png"
+                  src="/images/real/real-princep-ghat.jpg"
                   alt="Durgapuja River Cruise"
                   fill
                   sizes="150px"
@@ -612,7 +636,7 @@ export default function MobileAppHomePage() {
                   River Hooghly Cruise
                 </h4>
                 <p className="text-[10.5px] text-[#717882] truncate">
-                  Millennium Park Jetty
+                  Princep Ghat Pier
                 </p>
               </div>
             </Link>
@@ -624,7 +648,7 @@ export default function MobileAppHomePage() {
             >
               <div className="relative w-[150px] h-[210px] rounded-[22px] overflow-hidden shadow-md border border-black/5 group-hover:scale-102 transition-transform">
                 <Image
-                  src="/images/dandiya.jpg"
+                  src="/images/real/real-dandiya-celebration.jpg"
                   alt="Taaza Dandiya Raas"
                   fill
                   sizes="150px"
@@ -664,7 +688,7 @@ export default function MobileAppHomePage() {
               className="group block relative aspect-square rounded-[22px] overflow-hidden shadow-xs no-underline"
             >
               <Image
-                src="/images/friendly/chat-friends-drinks.jpg"
+                src="/images/real/real-roastery-coffee.jpg"
                 alt="Sienna Cafe"
                 fill
                 sizes="200px"
@@ -672,7 +696,7 @@ export default function MobileAppHomePage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent flex flex-col justify-end p-3 text-white">
                 <span className="text-[12px] font-bold leading-tight">Sienna & Roastery</span>
-                <span className="text-[10px] text-white/80">Courtyard & Specialty Coffee</span>
+                <span className="text-[10px] text-white/80">Courtyard Specialty Coffee</span>
               </div>
             </Link>
 
@@ -681,7 +705,7 @@ export default function MobileAppHomePage() {
               className="group block relative aspect-square rounded-[22px] overflow-hidden shadow-xs no-underline"
             >
               <Image
-                src="/images/friendly/chat-friends-sun.jpg"
+                src="/images/real/real-peter-cat-chelo.jpg"
                 alt="Park Street Classics"
                 fill
                 sizes="200px"
@@ -690,6 +714,40 @@ export default function MobileAppHomePage() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent flex flex-col justify-end p-3 text-white">
                 <span className="text-[12px] font-bold leading-tight">Park Street Classics</span>
                 <span className="text-[10px] text-white/80">Peter Cat & Olypub Jazz</span>
+              </div>
+            </Link>
+
+            <Link
+              href="/spots"
+              className="group block relative aspect-square rounded-[22px] overflow-hidden shadow-xs no-underline"
+            >
+              <Image
+                src="/images/real/real-college-street-books.jpg"
+                alt="College Street Boipada"
+                fill
+                sizes="200px"
+                className="object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent flex flex-col justify-end p-3 text-white">
+                <span className="text-[12px] font-bold leading-tight">College Street Boipada</span>
+                <span className="text-[10px] text-white/80">Books & Indian Coffee House</span>
+              </div>
+            </Link>
+
+            <Link
+              href="/spots"
+              className="group block relative aspect-square rounded-[22px] overflow-hidden shadow-xs no-underline"
+            >
+              <Image
+                src="/images/real/real-capella-skybar.jpg"
+                alt="Capella Skybar"
+                fill
+                sizes="200px"
+                className="object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent flex flex-col justify-end p-3 text-white">
+                <span className="text-[12px] font-bold leading-tight">Capella Rooftop</span>
+                <span className="text-[10px] text-white/80">20th Floor Cocktails & DJ</span>
               </div>
             </Link>
           </div>

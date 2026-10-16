@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Bell, ShieldCheck, Clock, Check, Ticket, ChevronRight, Sparkles } from "lucide-react";
 import BottomNavbar from "../components/BottomNavbar";
@@ -92,7 +93,25 @@ export default function VipPassPage() {
       </header>
 
       {/* Hero Notice */}
-      <div className="bg-white rounded-[26px] p-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-neutral-100 mb-4">
+      <div className="bg-white rounded-[26px] p-5 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-neutral-100 mb-4 overflow-hidden">
+        <div className="relative w-full h-32 rounded-2xl overflow-hidden mb-3">
+          <Image
+            src="/images/real/real-festival-lights.jpg"
+            alt="Kolkata Festival Lights"
+            fill
+            sizes="400px"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-3 text-white">
+            <span className="text-[10px] font-black uppercase text-[#FFA17E] tracking-wider">
+              Exclusive Corridor Access
+            </span>
+            <span className="text-xs font-bold leading-tight">
+              South & Central Kolkata Sharad Samman
+            </span>
+          </div>
+        </div>
+
         <div className="flex items-center gap-2 mb-2">
           <span className="text-[10px] font-bold uppercase tracking-wider text-[#FF6859] bg-[#FFF2F0] px-2.5 py-0.5 rounded-full flex items-center gap-1 border border-red-100">
             <ShieldCheck size={12} />

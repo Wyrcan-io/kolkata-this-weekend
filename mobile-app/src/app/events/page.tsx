@@ -190,7 +190,7 @@ export default function EventsTimelinePage() {
                   {/* Event Cover Image */}
                   <div className="relative w-full h-44 overflow-hidden bg-[#181a1e]">
                     <Image
-                      src={evt.coverImage || "/images/friendly/hero-chasing-sunsets.jpg"}
+                      src={evt.coverImage || "/images/real/real-jazz-rooftop.jpg"}
                       alt={evt.title}
                       fill
                       sizes="(max-width: 440px) 420px, 440px"

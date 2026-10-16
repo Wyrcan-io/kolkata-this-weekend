@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import AppHeader from "../../components/AppHeader";
 import { useApp } from "../../context";
 import {
@@ -138,6 +139,27 @@ export default function PollClient({ pollId }: { pollId: string }) {
             </div>
 
             <span className="text-[10px] text-neutral-400 font-mono">0:45</span>
+          </div>
+
+          {/* Crew In This Poll */}
+          <div className="flex items-center justify-between py-2 border-b border-white/5 my-1.5">
+            <span className="text-[10.5px] font-semibold text-neutral-400">Crew in this poll:</span>
+            <div className="flex items-center -space-x-2">
+              {[
+                { name: "Sneha", src: "/images/real/avatar-sneha.jpg" },
+                { name: "Rohan", src: "/images/real/avatar-rohan.jpg" },
+                { name: "Dev", src: "/images/real/avatar-dev.jpg" },
+                { name: "Ananya", src: "/images/real/avatar-ananya.jpg" },
+              ].map((user, idx) => (
+                <div
+                  key={idx}
+                  className="relative w-6 h-6 rounded-full overflow-hidden border border-[#181a1e] shadow-xs"
+                  title={user.name}
+                >
+                  <Image src={user.src} alt={user.name} fill sizes="24px" className="object-cover" />
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Helper Message */}
